@@ -7,7 +7,8 @@ import { Signup } from "./signup/components/Signup";
 
 const App = () => (
   <div className="container">
-    <Signup/>
+    <Login/>
+    {/* <Signup/> */}
   </div>
 );
 ReactDOM.render(<App />, document.getElementById("app"));

@@ -1,10 +1,12 @@
-import Login from 'mf_login/Login';
-import React from 'react'
+import Login from 'loginComponent/Login';
 
-export const Login = () => {
+const LoginPage = () => {
   return (
     <div>
-      <Login/>
+      <Login/>     
     </div>
-  )
-}
+  );
+};
+
+export default LoginPage;
+
