@@ -1,31 +1,16 @@
 import React from "react";
-import Keycloak from "keycloak-js";
-import $ from "ajax";
+import { useState, useEffect } from "react";
+import { isAuthenticated, logout, getToken } from "../../auth/keycloak.js";
 import axios from "axios";
-import { useState } from "react";
 
-let initOptions = {
-  url: "http://localhost:8090/",
-  realm: "TurnsManagementApp",
-  clientId: "TurnsManagementAppReact",
-  secret: "S7W89eQlZReefXpRbZyS6XUWqKWJlsFS",
-};
-let keycloak = new Keycloak(initOptions);
+const Login = () => {
+  useEffect(() => {
+    const auth = async () => {
+     await isAuthenticated();
+    }
+    auth();
+  }, []);
 
-try {
-  const authenticated = await keycloak.init({
-    onLoad: "login-required",
-  });
-
-  localStorage.setItem("bearer-token", keycloak.token);
-  console.log(
-    `User is ${authenticated ? "authenticated" : "not authenticated"}`
-  );
-} catch (error) {
-  console.error("Failed to initialize adapter:", error);
-}
-
-const Login = ({}) => {
   const [authenticatedText, setAuthenticatedText] = useState("not");
 
   const check = () => {
@@ -33,7 +18,7 @@ const Login = ({}) => {
     axios
       .get("http://localhost:9000/hello-2", {
         headers: {
-          Authorization: "Bearer " + localStorage.getItem("bearer-token"),
+          Authorization: "Bearer " + getToken(),
         },
       })
       .then((response) => {
@@ -44,8 +29,8 @@ const Login = ({}) => {
       });
   };
 
-  const logout = () => {
-    keycloak.logout();
+  const tma_logout = () => {
+    logout();
   };
 
   return (
@@ -82,7 +67,7 @@ const Login = ({}) => {
                   <button
                     type="button"
                     className="text-blue-800"
-                    onClick={logout}
+                    onClick={tma_logout}
                   >
                     Logout
                   </button>

@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 
 import "./index.css";
 import Login from "./login/components/Login";
@@ -7,8 +7,9 @@ import { Signup } from "./signup/components/Signup";
 
 const App = () => (
   <div className="container">
-    <Login/>
+    <Login />
     {/* <Signup/> */}
   </div>
 );
-ReactDOM.render(<App />, document.getElementById("app"));
+
+ReactDOM.createRoot(document.getElementById("app")).render(<App />);
