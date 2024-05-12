@@ -7,8 +7,8 @@ import { Signup } from "./signup/components/Signup";
 
 const App = () => (
   <div className="container">
-    <Login />
-    {/* <Signup/> */}
+    {/* <Login /> */}
+    <Signup/>
   </div>
 );
 

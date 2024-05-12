@@ -1,63 +1,132 @@
-import React from 'react'
-import {
-  MDBBtn,
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBCard,
-  MDBCardBody,
-  MDBCardImage,
-  MDBInput,
-  MDBIcon,
-  MDBCheckbox
-}
-from 'mdb-react-ui-kit';
-
+import React, { useState } from 'react'
 export const Signup = () => {
+  const [showPassword, setShowPassword] = useState(false); 
+  const [input, setInput] = useState({
+    email:'',
+    username: '',
+    password: '',
+    confirmPassword: ''
+  });
+
+  const [error, setError] = useState({
+    email: '',
+    username: '',
+    password: '',
+    confirmPassword: ''
+  })
+
+  const onInputChange = e => {
+    const { name, value } = e.target;
+    setInput(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    validateInput(e);
+  }
+
+  const validateInput = e => {
+  let { name, value } = e.target;
+    setError(prev => {
+      const stateObj = { ...prev, [name]: "" };
+ 
+      switch (name) {
+        case "username":
+          if (!value) {
+            stateObj[name] = "Please enter Username.";
+          }
+          break;
+ 
+        case "password":
+          if (!value) {
+            stateObj[name] = "Please enter Password.";
+          } else if (input.confirmPassword && value !== input.confirmPassword) {
+            stateObj["confirmPassword"] = "Password and Confirm Password does not match.";
+          } else {
+            stateObj["confirmPassword"] = input.confirmPassword ? "" : error.confirmPassword;
+          }
+          break;
+ 
+        case "confirmPassword":
+          if (!value) {
+            stateObj[name] = "Please enter Confirm Password.";
+          } else if (input.password && value !== input.password) {
+            stateObj[name] = "Password and Confirm Password does not match.";
+          }
+          break;
+ 
+        default:
+          break;
+      }
+ 
+      return stateObj;
+    });
+  }  
+
+  const handleSubmit = (event) => {
+    //TODO prevent the right way
+    event.preventDefault();
+    alert(`Name: ${formData.name}, Email: ${formData.email}, Message: ${formData.message}`
+    );
+  }
   return (
-    <MDBContainer fluid>
-      <MDBCard className='text-black m-5' style={{borderRadius: '25px'}}>
-        <MDBCardBody>
-          <MDBRow>
-            <MDBCol md='10' lg='6' className='order-2 order-lg-1 d-flex flex-column align-items-center'>
-
-              <p classNAme="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
-
-              <div className="d-flex flex-row align-items-center mb-4 ">
-                <MDBIcon fas icon="user me-3" size='lg'/>
-                <MDBInput label='Your Name' id='form1' type='text' className='w-100'/>
-              </div>
-
-              <div className="d-flex flex-row align-items-center mb-4">
-                <MDBIcon fas icon="envelope me-3" size='lg'/>
-                <MDBInput label='Your Email' id='form2' type='email'/>
-              </div>
-
-              <div className="d-flex flex-row align-items-center mb-4">
-                <MDBIcon fas icon="lock me-3" size='lg'/>
-                <MDBInput label='Password' id='form3' type='password'/>
-              </div>
-
-              <div className="d-flex flex-row align-items-center mb-4">
-                <MDBIcon fas icon="key me-3" size='lg'/>
-                <MDBInput label='Repeat your password' id='form4' type='password'/>
-              </div>
-
-              <div className='mb-4'>
-                <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Subscribe to our newsletter' />
-              </div>
-
-              <MDBBtn className='mb-4' size='lg'>Register</MDBBtn>
-
-            </MDBCol>
-
-            <MDBCol md='10' lg='6' className='order-1 order-lg-2 d-flex align-items-center'>
-              <MDBCardImage src='https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp' fluid/>
-            </MDBCol>
-
-          </MDBRow>
-        </MDBCardBody>
-      </MDBCard>
-
-    </MDBContainer>  )
+    <form onSubmit={handleSubmit}>
+      <label>
+        <h3>Email</h3>
+        <input 
+          type="email" 
+          name="Email" 
+          value={input.email} 
+          onChange={onInputChange}
+          onBlur={validateInput}
+        />
+        {error.email && <span className='err'> {error.email}</span>}
+      </label>
+      <label>
+        <h3>Username</h3>
+        <input 
+          type="text" 
+          name="Username" 
+          value={input.username} 
+          onChange={onInputChange}
+          onBlur={validateInput}
+        />
+        {error.username && <span className='err'> {error.username}</span>}
+      </label>
+      <label>
+        <h3>Password</h3>
+        <input 
+          name="Password" 
+          value={input.password} 
+          type={showPassword ? "text" : "password"} 
+          onChange={onInputChange}
+          onBlur={validateInput}
+        />
+        {error.password && <span className='err'> {error.confirmPassword}</span>}
+      </label>
+      <label>
+        <h3>Confirm Password</h3>
+        <input 
+          name="Confirm Password" 
+          value={input.confirmPassword} 
+          type={showPassword ? "text" : "password"} 
+          onChange={onInputChange}
+          onBlur={validateInput} 
+        />
+        {error.confirmPassword && <span className='err'> {error.confirmPassword}</span>}
+      </label>
+      <div>
+        <div id='show-pw-text'>
+        Show password 
+        <input 
+            id='check' 
+            type='checkbox' 
+            value={showPassword} 
+            onChange={() => setShowPassword((prev) => !prev)}
+            onBlur={validateInput}
+          />
+        </div>
+        <input type="submit" name="submit" value="submit" onClick={validateInput}/>
+      </div>
+    </form>
+  )
 }
