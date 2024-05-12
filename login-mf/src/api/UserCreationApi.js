@@ -17,7 +17,7 @@ export const createUser = ({ username, email, password, firstName = "", lastName
     redirect: "follow"
   };
 
-  return fetch(`http://localhost:8090/admin/realms/${process.env.REACT_APP_REALM}/user/create`, requestOptions)
+  return fetch(`http://localhost:8090/admin/realms/${process.env.REACT_APP_REALM}/users`, requestOptions)
     .then((response) => response.text())
     .then(() => true)
     .catch((error) => {
