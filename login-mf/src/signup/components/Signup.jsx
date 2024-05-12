@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { createUser } from '../../api/LoginApi';
+import { createUser } from '../../api/UserCreationApi';
 import { getToken } from '../../auth/keycloak';
 
 export const Signup = () => {
