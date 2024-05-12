@@ -1,29 +1,28 @@
-const axios = require('axios');
-
-export const createUser = ({username, email, password, firstName="", lastName="", token}) => {
-  console.log(REACT_APP_USERNAME);
-  const isCreated = false;
+export const createUser = ({ username, email, password, firstName = "", lastName = "", token }) => {
   const myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
   myHeaders.append("Authorization", `Bearer ${token}`);
 
-  const userBody = JSON.stringify({
-    "username": process.env.REACT_APP_USERNAME,
-    "email": email,  
-    "firstName": firstName,
-    "lastName": lastName,
-    "password": password 
-  });
+  const urlencoded = new URLSearchParams();
+  urlencoded.append("username", username);
+  urlencoded.append("email", email);
+  urlencoded.append("firstName", firstName);
+  urlencoded.append("lastName", lastName);
+  urlencoded.append("password", password);
 
   const requestOptions = {
     method: "POST",
     headers: myHeaders,
-    body: userBody,
+    body: urlencoded,
     redirect: "follow"
   };
 
-  // fetch("http://localhost:9000/keycloak/user/create", requestOptions)
-  //   .then((response) => response.text())
-  //   .then(() => isCreated = true)
-  //   .catch((error) => console.error(error));
-}
+  return fetch(`http://localhost:8090/admin/realms/${process.env.REACT_APP_REALM}/user/create`, requestOptions)
+    .then((response) => response.text())
+    .then(() => true)
+    .catch((error) => {
+      console.error(error);
+      return false;
+    });
+};
+

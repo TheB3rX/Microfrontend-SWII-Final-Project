@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { createUser } from '../../api/UserCreationApi';
+import { serviceAccountLogin } from '../../api/LoginApi';
 import { getToken } from '../../auth/keycloak';
-const {REACT_APP_USERNAME} = process.env;
 
 export const Signup = () => {
-  console.log(REACT_APP_USERNAME);
   const [showPassword, setShowPassword] = useState(false);
   const [input, setInput] = useState({
     email: '',
@@ -70,17 +69,19 @@ export const Signup = () => {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
    // Extract values from the input state
     const { email, username, firstName, lastName, password } = input;
-    const token = getToken;
     
-    // Alert or perform any other actions with the extracted values
-    alert(`Email: ${email}, Username: ${username}, Password: ${password}`);
-    
-    // Call the createUser function with the input values
-    createUser({ email, username, firstName, lastName, password, token});  
+    try {
+
+      const token = await serviceAccountLogin();
+      console.log(token);
+      createUser({ email, username, firstName, lastName, password, token})
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

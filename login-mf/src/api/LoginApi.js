@@ -1,27 +1,31 @@
-const axios = require('axios');
-
 export const serviceAccountLogin = () => {
-  const myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
-  myHeaders.append("Authorization", `Bearer ${token}`);
+  return new Promise((resolve, reject) => {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-  const userBody = JSON.stringify({
-    "username": username,
-    "email": email,  
-    "firstName": firstName,
-    "lastName": lastName,
-    "password": password 
+    const urlencoded = new URLSearchParams();
+    urlencoded.append("username", process.env.REACT_APP_USERNAME);
+    urlencoded.append("password", process.env.REACT_APP_PASSWORD);
+    urlencoded.append("grant_type", "client_credentials");
+    urlencoded.append("client_id", process.env.REACT_APP_CLIENT_ID); 
+    urlencoded.append("client_secret", process.env.REACT_APP_CLIENT_SECRET);
+
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: urlencoded,
+      redirect: "follow"
+    };
+
+    fetch("http://localhost:8090/realms/TurnsManagementApp/protocol/openid-connect/token", requestOptions)
+      .then((response) => response.json())
+      .then((result) => { 
+        const token = result.access_token;
+        resolve(token); // Resolve the promise with the token
+      })
+      .catch((error) => {
+        console.error(error);
+        reject(error); // Reject the promise with the error
+      });
   });
-
-  const requestOptions = {
-    method: "POST",
-    headers: myHeaders,
-    body: userBody,
-    redirect: "follow"
-  };
-
-  fetch("http://localhost:9000/keycloak/user/create", requestOptions)
-    .then((response) => response.text())
-    .then(() => isCreated = true)
-    .catch((error) => console.error(error));
-}
+};
