@@ -1,9 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { createUser } from '../../api/LoginApi';
+import { getToken } from '../../auth/keycloak';
+
 export const Signup = () => {
-  const [showPassword, setShowPassword] = useState(false); 
+  const [showPassword, setShowPassword] = useState(false);
   const [input, setInput] = useState({
-    email:'',
+    email: '',
     username: '',
+    firstName: '',
+    lastName: '',
     password: '',
     confirmPassword: ''
   });
@@ -11,9 +16,11 @@ export const Signup = () => {
   const [error, setError] = useState({
     email: '',
     username: '',
+    firstName: '',
+    lastName: '',
     password: '',
     confirmPassword: ''
-  })
+  });
 
   const onInputChange = e => {
     const { name, value } = e.target;
@@ -21,63 +28,69 @@ export const Signup = () => {
       ...prev,
       [name]: value
     }));
-    validateInput(e);
-  }
+    validateInput(name, value); // Pass the name and value to validateInput
+  };
 
-  const validateInput = e => {
-  let { name, value } = e.target;
+  const validateInput = (name, value) => { // Adjust validateInput to accept name and value
     setError(prev => {
       const stateObj = { ...prev, [name]: "" };
- 
+
       switch (name) {
         case "username":
           if (!value) {
             stateObj[name] = "Please enter Username.";
           }
           break;
- 
+
         case "password":
           if (!value) {
             stateObj[name] = "Please enter Password.";
           } else if (input.confirmPassword && value !== input.confirmPassword) {
-            stateObj["confirmPassword"] = "Password and Confirm Password does not match.";
+            stateObj["confirmPassword"] = "Password and Confirm Password do not match.";
           } else {
             stateObj["confirmPassword"] = input.confirmPassword ? "" : error.confirmPassword;
           }
           break;
- 
+
         case "confirmPassword":
           if (!value) {
             stateObj[name] = "Please enter Confirm Password.";
           } else if (input.password && value !== input.password) {
-            stateObj[name] = "Password and Confirm Password does not match.";
+            stateObj[name] = "Password and Confirm Password do not match.";
           }
           break;
- 
+
         default:
           break;
       }
- 
+
       return stateObj;
     });
-  }  
+  };
 
   const handleSubmit = (event) => {
-    //TODO prevent the right way
     event.preventDefault();
-    alert(`Name: ${formData.name}, Email: ${formData.email}, Message: ${formData.message}`
-    );
-  }
+   // Extract values from the input state
+    const { email, username, firstName, lastName, password } = input;
+    const token = getToken;
+    
+    // Alert or perform any other actions with the extracted values
+    alert(`Email: ${email}, Username: ${username}, Password: ${password}`);
+    
+    // Call the createUser function with the input values
+    createUser({ email, username, firstName, lastName, password, token});  
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <label>
         <h3>Email</h3>
         <input 
           type="email" 
-          name="Email" 
+          name="email" 
           value={input.email} 
           onChange={onInputChange}
-          onBlur={validateInput}
+          onBlur={() => validateInput('email', input.email)} // Manually call validateInput on blur
         />
         {error.email && <span className='err'> {error.email}</span>}
       </label>
@@ -85,48 +98,70 @@ export const Signup = () => {
         <h3>Username</h3>
         <input 
           type="text" 
-          name="Username" 
+          name="username" 
           value={input.username} 
           onChange={onInputChange}
-          onBlur={validateInput}
+          onBlur={() => validateInput('username', input.username)} // Manually call validateInput on blur
         />
         {error.username && <span className='err'> {error.username}</span>}
       </label>
       <label>
+        <h3>First name</h3>
+        <input 
+          type="text" 
+          name="firstName" 
+          value={input.firstName} 
+          onChange={onInputChange}
+          onBlur={() => validateInput('firstName', input.firstName)} // Manually call validateInput on blur
+        />
+        {error.firstName && <span className='err'> {error.firstName}</span>}
+      </label>
+      <label>
+        <h3>Last name</h3>
+        <input 
+          type="text" 
+          name="lastName" 
+          value={input.lastName} 
+          onChange={onInputChange}
+          onBlur={() => validateInput('lastName', input.lastName)} // Manually call validateInput on blur
+        />
+        {error.lastName && <span className='err'> {error.lastName}</span>}
+      </label>
+      <label>
         <h3>Password</h3>
         <input 
-          name="Password" 
+          name="password" 
           value={input.password} 
           type={showPassword ? "text" : "password"} 
           onChange={onInputChange}
-          onBlur={validateInput}
+          onBlur={() => validateInput('password', input.password)} // Manually call validateInput on blur
         />
-        {error.password && <span className='err'> {error.confirmPassword}</span>}
+        {error.password && <span className='err'> {error.password}</span>}
       </label>
       <label>
         <h3>Confirm Password</h3>
         <input 
-          name="Confirm Password" 
+          name="confirmPassword" 
           value={input.confirmPassword} 
           type={showPassword ? "text" : "password"} 
           onChange={onInputChange}
-          onBlur={validateInput} 
+          onBlur={() => validateInput('confirmPassword', input.confirmPassword)} // Manually call validateInput on blur
         />
         {error.confirmPassword && <span className='err'> {error.confirmPassword}</span>}
       </label>
       <div>
         <div id='show-pw-text'>
-        Show password 
-        <input 
+          Show password 
+          <input 
             id='check' 
             type='checkbox' 
-            value={showPassword} 
-            onChange={() => setShowPassword((prev) => !prev)}
-            onBlur={validateInput}
+            checked={showPassword} 
+            onChange={() => setShowPassword(prev => !prev)}
           />
         </div>
-        <input type="submit" name="submit" value="submit" onClick={validateInput}/>
+        <input type="submit" name="submit" value="Submit"/>
       </div>
     </form>
-  )
-}
+  );
+};
+
