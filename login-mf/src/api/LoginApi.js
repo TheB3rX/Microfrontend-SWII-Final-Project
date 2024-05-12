@@ -1,14 +1,12 @@
 const axios = require('axios');
 
-export const createUser = ({username, email, password, firstName="", lastName="", token}) => {
-  console.log(REACT_APP_USERNAME);
-  const isCreated = false;
+export const serviceAccountLogin = () => {
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("Authorization", `Bearer ${token}`);
 
   const userBody = JSON.stringify({
-    "username": process.env.REACT_APP_USERNAME,
+    "username": username,
     "email": email,  
     "firstName": firstName,
     "lastName": lastName,
@@ -22,8 +20,8 @@ export const createUser = ({username, email, password, firstName="", lastName=""
     redirect: "follow"
   };
 
-  // fetch("http://localhost:9000/keycloak/user/create", requestOptions)
-  //   .then((response) => response.text())
-  //   .then(() => isCreated = true)
-  //   .catch((error) => console.error(error));
+  fetch("http://localhost:9000/keycloak/user/create", requestOptions)
+    .then((response) => response.text())
+    .then(() => isCreated = true)
+    .catch((error) => console.error(error));
 }

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { createUser } from '../../api/UserCreationApi';
 import { getToken } from '../../auth/keycloak';
+const {REACT_APP_USERNAME} = process.env;
 
 export const Signup = () => {
+  console.log(REACT_APP_USERNAME);
   const [showPassword, setShowPassword] = useState(false);
   const [input, setInput] = useState({
     email: '',
