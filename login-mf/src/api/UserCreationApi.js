@@ -1,14 +1,23 @@
 export const createUser = ({ username, email, password, firstName = "", lastName = "", token }) => {
   const myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+  myHeaders.append("Content-Type", "application/json");
   myHeaders.append("Authorization", `Bearer ${token}`);
 
   const urlencoded = new URLSearchParams();
-  urlencoded.append("username", username);
-  urlencoded.append("email", email);
-  urlencoded.append("firstName", firstName);
-  urlencoded.append("lastName", lastName);
-  urlencoded.append("password", password);
+
+  const rawBody = JSON.stringify({
+    "username": username,
+    "email": email,
+    "firstName": firstName,
+    "lastName": lastName,
+    "credentials": [
+      {
+        "type": "password",
+        "value": password,
+        "temporary": false
+      }
+    ]
+  });  
 
   const requestOptions = {
     method: "POST",
