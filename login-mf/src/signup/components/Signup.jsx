@@ -71,14 +71,12 @@ export const Signup = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-   // Extract values from the input state
     const { email, username, firstName, lastName, password } = input;
     
     try {
-
       const token = await serviceAccountLogin();
-      console.log(token);
-      createUser({ email, username, firstName, lastName, password, token})
+      console.log(token)
+      // createUser({ email, username, firstName, lastName, password, token})
     } catch (error) {
       console.error(error);
     }
