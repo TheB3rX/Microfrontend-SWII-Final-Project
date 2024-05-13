@@ -4,8 +4,6 @@ export const serviceAccountLogin = () => {
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
     const urlencoded = new URLSearchParams();
-    urlencoded.append("username", process.env.REACT_APP_USERNAME);
-    urlencoded.append("password", process.env.REACT_APP_PASSWORD);
     urlencoded.append("grant_type", "client_credentials");
     urlencoded.append("client_id", process.env.REACT_APP_CLIENT_ID); 
     urlencoded.append("client_secret", process.env.REACT_APP_CLIENT_SECRET);
