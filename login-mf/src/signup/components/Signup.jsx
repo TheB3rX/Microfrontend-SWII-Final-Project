@@ -167,7 +167,7 @@ export const Signup = () => {
             onChange={() => setShowPassword(prev => !prev)}
           />
         </div>
-        <div className='submit-button'>
+        <div className='submit-button-div'>
           <input id="submit-button" type="submit" name="submit" value="Submit"/>
         </div>
       </form>
