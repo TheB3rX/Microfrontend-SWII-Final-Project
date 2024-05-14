@@ -3,35 +3,24 @@ export const createUser = ({ username, email, password, firstName = "", lastName
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("Authorization", `Bearer ${token}`);
 
-  const urlencoded = new URLSearchParams();
-
   const rawBody = JSON.stringify({
     "username": username,
     "email": email,
     "firstName": firstName,
     "lastName": lastName,
-    "credentials": [
-      {
-        "type": "password",
-        "value": password,
-        "temporary": false
-      }
-    ]
+    "password": password,
   });  
 
   const requestOptions = {
     method: "POST",
     headers: myHeaders,
-    body: urlencoded,
+    body: rawBody,
     redirect: "follow"
   };
 
-  return fetch(`http://localhost:8090/admin/realms/${process.env.REACT_APP_REALM}/users`, requestOptions)
+  return fetch("http://localhost:9000/keycloak/user/create", requestOptions)
     .then((response) => response.text())
-    .then(() => true)
-    .catch((error) => {
-      console.error(error);
-      return false;
-    });
+    .then((result) => console.log(result))
+    .catch((error) => console.error(error));
 };
 

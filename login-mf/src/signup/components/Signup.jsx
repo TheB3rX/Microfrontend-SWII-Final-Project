@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { createUser } from '../../api/UserCreationApi';
 import { serviceAccountLogin } from '../../api/LoginApi';
+import './Signup.css';
 import { getToken } from '../../auth/keycloak';
 
 export const Signup = () => {
@@ -77,7 +78,6 @@ export const Signup = () => {
     const { email, username, firstName, lastName, organization, password } = input;
     
     try {
-
       const token = await serviceAccountLogin();
       console.log(token);
       createUser({ email, username, firstName, lastName, organization, password, token})
@@ -168,7 +168,7 @@ export const Signup = () => {
       </label>
       <div>
         <div id='show-pw-text'>
-          Show password 
+          <p>Show password</p>          
           <input 
             id='check' 
             type='checkbox' 
@@ -176,9 +176,11 @@ export const Signup = () => {
             onChange={() => setShowPassword(prev => !prev)}
           />
         </div>
-        <input type="submit" name="submit" value="Submit"/>
-      </div>
-    </form>
+        <div className='submit-button-div'>
+          <input id="submit-button" type="submit" name="submit" value="Submit"/>
+        </div>
+      </form>
+    </>
   );
 };
 
