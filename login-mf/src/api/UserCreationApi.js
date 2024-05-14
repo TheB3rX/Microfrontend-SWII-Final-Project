@@ -3,12 +3,18 @@ export const createUser = ({ username, email, password, firstName = "", lastName
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("Authorization", `Bearer ${token}`);
 
-  const rawBody = JSON.stringify({
+ const rawBody = JSON.stringify({
     "username": username,
     "email": email,
     "firstName": firstName,
     "lastName": lastName,
-    "password": password,
+    "credentials": [
+      {
+        "type": "password",
+        "value": password,
+        "temporary": false
+      }
+    ]
   });  
 
   const requestOptions = {
@@ -18,9 +24,12 @@ export const createUser = ({ username, email, password, firstName = "", lastName
     redirect: "follow"
   };
 
-  return fetch("http://localhost:9000/keycloak/user/create", requestOptions)
+  return fetch(`http://localhost:8090/admin/realms/${process.env.REACT_APP_REALM}/users`, requestOptions)
     .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.error(error));
+    .then(() => true)
+    .catch((error) => {
+      console.error(error);
+      return false;
+    });
 };
 
