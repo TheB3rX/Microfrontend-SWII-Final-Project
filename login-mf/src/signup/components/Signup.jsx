@@ -10,6 +10,7 @@ export const Signup = () => {
     username: '',
     firstName: '',
     lastName: '',
+    organization: '',
     password: '',
     confirmPassword: ''
   });
@@ -19,6 +20,7 @@ export const Signup = () => {
     username: '',
     firstName: '',
     lastName: '',
+    organization: '',
     password: '',
     confirmPassword: ''
   });
@@ -72,13 +74,13 @@ export const Signup = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
    // Extract values from the input state
-    const { email, username, firstName, lastName, password } = input;
+    const { email, username, firstName, lastName, organization, password } = input;
     
     try {
 
       const token = await serviceAccountLogin();
       console.log(token);
-      createUser({ email, username, firstName, lastName, password, token})
+      createUser({ email, username, firstName, lastName, organization, password, token})
     } catch (error) {
       console.error(error);
     }
@@ -130,6 +132,18 @@ export const Signup = () => {
         />
         {error.lastName && <span className='err'> {error.lastName}</span>}
       </label>
+      <label>
+        <h3>Organization</h3>
+        <input 
+          type="text" 
+          name="organization" 
+          value={input.organization} 
+          onChange={onInputChange}
+          onBlur={() => validateInput('organization', input.organization)} // Manually call validateInput on blur
+        />
+        {error.organization&& <span className='err'> {error.organization}</span>}
+      </label>
+
       <label>
         <h3>Password</h3>
         <input 

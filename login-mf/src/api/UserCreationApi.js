@@ -1,4 +1,4 @@
-export const createUser = ({ username, email, password, firstName = "", lastName = "", token }) => {
+export const createUser = ({ username, email, password, firstName = "", lastName = "",organization = "", token }) => {
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("Authorization", `Bearer ${token}`);

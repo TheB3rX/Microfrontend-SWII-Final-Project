@@ -1,0 +1,6 @@
+.ticket-formulary {
+  background-color: red;
+  border-radius: 15px;
+  padding: 5dvh;
+  display: flex;
+}
