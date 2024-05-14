@@ -2,11 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import "./index.css";
-import { TicketCreation } from "./components/ticket/TicketCreation";
+import { TicketCRUD } from "./components/ticket/TicketCRUD";
 
 const App = () => (
   <div className="container">
-    <TicketCreation/>
+    <TicketCRUD
+      type='creation' 
+      text='Create'
+    />
   </div>
 );
 ReactDOM.render(<App />, document.getElementById("app"));

@@ -2,7 +2,10 @@
   --background-color: #d9d9d9;
   --confirm-color: #3f97f3;
   --edit-color:#e8a700;
-  --cancel-color:#bc000i0;
+  --cancel-color:#8e0000;
+  --confirm-hover-color: #1888ff;
+  --edit-hover-color:#c18b00;
+  --cancel-color:#bc0000;
   --form-background-color: #a3a3a3;
 }
 body {
