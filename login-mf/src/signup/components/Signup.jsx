@@ -76,7 +76,6 @@ export const Signup = () => {
     
     try {
       const token = await serviceAccountLogin();
-      console.log(token)
       createUser({ email, username, firstName, lastName, password, token})
     } catch (error) {
       console.error(error);
