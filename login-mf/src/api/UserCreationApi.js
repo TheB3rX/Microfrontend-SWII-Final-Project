@@ -2,7 +2,6 @@ export const createUser = ({ username, email, password, firstName = "", lastName
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("Authorization", `Bearer ${token}`);
-  console.log(token);
 
   const rawBody = JSON.stringify({
     "username": username,
