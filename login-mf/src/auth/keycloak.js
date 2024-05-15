@@ -23,6 +23,10 @@ export const isAuthenticated = async () => {
   }
 };
 
+export const keycloakUserId = () => {
+  keycloak.subject;
+}
+
 export const logout = () => {
     keycloak.logout();
 };
