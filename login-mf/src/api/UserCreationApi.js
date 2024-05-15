@@ -6,15 +6,10 @@ export const createUser = ({ username, email, password, firstName = "", lastName
  const rawBody = JSON.stringify({
     "username": username,
     "email": email,
+    "organization": organization,
     "firstName": firstName,
     "lastName": lastName,
-    "credentials": [
-      {
-        "type": "password",
-        "value": password,
-        "temporary": false
-      }
-    ]
+    "password": password,
   });  
 
   const requestOptions = {
@@ -24,7 +19,7 @@ export const createUser = ({ username, email, password, firstName = "", lastName
     redirect: "follow"
   };
 
-  return fetch(`http://localhost:8090/admin/realms/${process.env.REACT_APP_REALM}/users`, requestOptions)
+  return fetch(`http://localhost:9000/keycloak/user/create`, requestOptions)
     .then((response) => response.text())
     .then(() => true)
     .catch((error) => {

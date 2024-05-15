@@ -4,9 +4,13 @@ import { isAuthenticated, logout, getToken } from "../../auth/keycloak.js";
 import axios from "axios";
 
 const Login = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
   useEffect(() => {
     const auth = async () => {
-     await isAuthenticated();
+     await isAuthenticated().then(() => {
+        setIsAuthenticated(true); 
+     });
     }
     auth();
   }, []);
