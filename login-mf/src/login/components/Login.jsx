@@ -1,36 +1,37 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { isAuthenticated, logout, getToken } from "../../auth/keycloak.js";
 import axios from "axios";
+import { LineWave } from "react-loader-spinner";
 
 const Login = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [keycloakAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [authenticatedText, setAuthenticatedText] = useState("not");
 
   useEffect(() => {
     const auth = async () => {
-     await isAuthenticated().then(() => {
-        setIsAuthenticated(true); 
-     });
-    }
+      await isAuthenticated().then(() => {
+        setIsAuthenticated(true);
+      });
+      setIsLoading(false);
+    };
     auth();
   }, []);
 
-  const [authenticatedText, setAuthenticatedText] = useState("not");
-
-  const check = () => {
-    // Petición para hello-2
-    axios
-      .get("http://localhost:9000/hello-2", {
+  const check = async () => {
+    setIsLoading(true);
+    try {
+      const response = await axios.get("http://localhost:9000/hello-2", {
         headers: {
           Authorization: "Bearer " + getToken(),
         },
-      })
-      .then((response) => {
-        setAuthenticatedText(response.data);
-      })
-      .catch((error) => {
-        setAuthenticatedText("You don't have customer privileges");
       });
+      setAuthenticatedText(response.data);
+    } catch (error) {
+      setAuthenticatedText("You don't have customer privileges");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const tma_logout = () => {
@@ -81,6 +82,22 @@ const Login = () => {
           </nav>
         </section>
       </div>
+      {isLoading && (
+        <div className="flex justify-center items-center h-screen">
+          <LineWave
+            visible={true}
+            height="100"
+            width="100"
+            color="#4fa94d"
+            ariaLabel="line-wave-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+            firstLineColor=""
+            middleLineColor=""
+            lastLineColor=""
+          />
+        </div>
+      )}
     </div>
   );
 };
