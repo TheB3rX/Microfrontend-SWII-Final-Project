@@ -2,6 +2,9 @@ import React, { useState , useEffect} from 'react'
 import './TicketCreation.css';
 
 export const TicketCRUD = ({type, text}) => {
+
+  // Ticket CRUD recieves the type and text of the ticket
+  // It can be: creation, update and deletion, every one of them has it's own css vars
   const [buttonColor, setButtonColor] = useState();
 
   const checkOperationType = (type) => {
