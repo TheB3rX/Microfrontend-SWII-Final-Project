@@ -6,7 +6,7 @@ import Signup from "./pages/signup/Signup";
 import { MyTickets } from "./pages/tickets/MyTickets";
 import { GeneralTickets } from "./pages/tickets/GeneralTickets";
 import { PrivateRoutes } from "./routes/ProtectedRoute";
-import LoginPage from "./pages/Login";
+import { LoginPage } from "./pages/Login";
 
 const App = () => {
   return (
@@ -18,7 +18,7 @@ const App = () => {
             <Route path="/ticket-table" element={<GeneralTickets />} />
           </Route>
           <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<LoginPage/>}
+          <Route path="/login" element={<LoginPage/>} />
         </Routes>
       </Router>
     </div>
