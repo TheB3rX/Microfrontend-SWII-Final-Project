@@ -1,36 +1,30 @@
-import { ReactKeycloakProvider } from "@react-keycloak/web";
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./index.css";
-import { keycloak } from "./Keycloak";
-import { SecuredPage } from "./components/secured/SecuredPage";
-import { PrivateRoute } from "./helpers/PrivateRoute";
 import Signup from "./pages/signup/Signup";
-import { AuthProvider } from "./auth/AuthContext";
-import { SecuredTicketCRUD } from "./components/secured/SecuredTicketCRUD";
+import { MyTickets } from "./pages/tickets/MyTickets";
+import { GeneralTickets } from "./pages/tickets/GeneralTickets";
+import { PrivateRoutes } from "./routes/ProtectedRoute";
+import LoginPage from "./pages/Login";
 
 const App = () => {
   return (
-    <AuthProvider>
-      <ReactKeycloakProvider authClient={keycloak}>
-        <BrowserRouter> 
-          <Routes>
-            <Route exact path="/login" element={<Signup/>} />
-            <Route exact path="/" element={ <SecuredTicketCRUD/> }/>
-            <Route exact path="/secured" element={ 
-                <PrivateRoute>
-                  <SecuredPage/> 
-                </PrivateRoute>
-              }
-            />
-          </Routes>
-        </BrowserRouter>
-      </ReactKeycloakProvider>
-    </AuthProvider>
-  )
-}
+    <div className="App">
+      <Router>
+        <Routes>
+          <Route element={<PrivateRoutes />}>
+            <Route path="/" element={<MyTickets />} />
+            <Route path="/ticket-table" element={<GeneralTickets />} />
+          </Route>
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<LoginPage/>}
+        </Routes>
+      </Router>
+    </div>
+  );
+};
 
-export default App
+export default App;
 
 ReactDOM.render(<App />, document.getElementById("app"));
