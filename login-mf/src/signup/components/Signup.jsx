@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { createUser } from '../../api/UserCreationApi';
 import { serviceAccountLogin } from '../../api/LoginApi';
 import './Signup.css';
-import { getToken } from '../../auth/keycloak';
 
 export const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);

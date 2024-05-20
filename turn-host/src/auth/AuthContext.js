@@ -1,65 +1,52 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { initKeycloak } from "./Keycloak";
-import { keycloak } from "../Keycloak";
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { keycloak } from '../Keycloak'; 
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [userInfo, setUserInfo] = useState(null);
+  const [token, setToken] = useState(localStorage.getItem('token'));
+  const [refreshToken, setRefreshToken] = useState(localStorage.getItem('refreshToken'));
+  const [userId, setUserId] = useState(localStorage.getItem('userId'));
 
   useEffect(() => {
-    const token = localStorage.getItem('keycloakToken');
-    const refreshToken = localStorage.getItem('keycloakRefreshToken');
+    if (keycloak.token) {
+      const newToken = keycloak.token;
+      const newRefreshToken = keycloak.refreshToken;
+      const newUserId = keycloak.subject;
 
-    if (token) {
-      keycloak.token = token;
-      keycloak.refreshToken = refreshToken;
+      setToken(newToken);
+      setRefreshToken(newRefreshToken)
+      setUserId(newUserId);
+
+      localStorage.setItem('token', newToken);
+      localStorage.setItem('refreshToken', newRefreshToken);
+      localStorage.setItem('userId', newUserId);
     }
+  }, []);
 
-    initKeycloak().then(authenticated => {
-      setIsAuthenticated(authenticated);
-      if (authenticated) {
-        keycloak.loadUserInfo().then(info => setUserInfo(info));
+  const updateSession = () => {
+    keycloak.updateToken(70).then((refreshed) => {
+      if (refreshed) {
+        const newToken = keycloak.token;
+        const newRefreshToken = keycloak.refreshToken;
+        setToken(newToken);
+        setRefreshToken(newRefreshToken)
+        localStorage.setItem('token', newToken);
+        localStorage.setItem('refreshToken', newRefreshToken);
       }
+    }).catch(() => {
+      keycloak.logout();
+      localStorage.removeItem('token');
+      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('userId');
     });
-  }, []);  return (
-    <AuthContext.Provider value={{ keycloak, isAuthenticated, userInfo }}>
+  };
+
+  return (
+    <AuthContext.Provider value={{ token, refreshToken, userId, updateSession }}>
       {children}
     </AuthContext.Provider>
   );
+};
 
-  // This can be experimental, based on Oauth, idk, ill go with chatgpt
-  // const [token, setToken_] = useState(localStorage.getItem("token"));
-
-  // const setToken = (newToken) => {
-  //   setToken_(newToken);
-  // }
-
-  // useEffect(() => {
-  //   if (token) {
-  //     localStorage.setItem('token', token);
-  //   } else {
-  //     localStorage.removeItem('token');
-  //   } 
-  // }, [token]);
-
-  // const contextValue = useMemo(
-  //   () => ({
-  //     token,
-  //     setToken,
-  //   }),
-  //   [token]
-  // );
-
-  // return (
-  //   <AuthContext.Provider value={contextValue}>
-  //     {children}    
-  //   </AuthContext.Provider>
-  // )
-}
-
-export const useAuth = () => {
-  return useContext(AuthContext);
-}
+export const useAuth = () => useContext(AuthContext);
