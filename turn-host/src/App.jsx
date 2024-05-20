@@ -6,7 +6,7 @@ import Signup from "./pages/signup/Signup";
 import { MyTickets } from "./pages/tickets/MyTickets";
 import { GeneralTickets } from "./pages/tickets/GeneralTickets";
 import { PrivateRoutes } from "./routes/ProtectedRoute";
-import { LoginPage } from "./pages/Login";
+import { LoginPage } from "./pages/login/Login";
 
 const App = () => {
   return (
