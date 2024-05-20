@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { LineWave } from "react-loader-spinner";
 
-const Login = ({props}) => {
-  const [isLoading, setIsLoading] = useState(true);
+const Login = ({}) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [authenticatedText, setAuthenticatedText] = useState("not");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 

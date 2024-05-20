@@ -46,8 +46,10 @@ module.exports = (_, argv) => ({
       remotes: {
         signupComponent:"login_mf@http://localhost:3001/remoteEntry.js",
         loginComponent: "login_mf@http://localhost:3001/remoteEntry.js",
+        ticketModalComponent: "ticket_management_mf@http://localhost:3003/remoteEntry.js",
+        navbarComponent: "navbar_mf@http://localhost:3002/remoteEntry.js",
+        adminComponent: "admin_mf@http://localhost:3005/remoteEntry.js"
         // signupComponent: "login_mf@http://localhost:3001/remoteEntry.js",
-        // navbarComponent: "navbar_mf@http://localhost:3002/remoteEntry.js"
       },
       exposes: {},
       shared: {
