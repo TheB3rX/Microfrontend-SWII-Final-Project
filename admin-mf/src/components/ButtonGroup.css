@@ -1,0 +1,16 @@
+.buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .buttons button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .buttons img {
+    width: 50px;
+    height: 50px;
+  }
+  

@@ -1,6 +1,5 @@
-/* Estilos para la barra de navegación */
 .navbar {
-  background: linear-gradient(to right, #669cff, #7108b8); /* Gradiente */
+  background: linear-gradient(to right, #669cff, #7108b8);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -22,7 +21,6 @@
   cursor: pointer;
 }
 
-/* Estilos para el contenedor principal */
 .container {
   margin-top: 20px;
   display: block;
@@ -41,14 +39,14 @@
   display: flex;
   justify-content: end;
   align-items: end;
-  /* padding: 20px; */
+  
   padding-left: 20px;
   padding-right: 20px;
   padding-bottom: 20px;
 }
 
 .buttons button {
-  /* margin: 30px; */
+  
   margin-left: 30px;
 }
 
