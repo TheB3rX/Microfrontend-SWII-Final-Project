@@ -12,7 +12,7 @@ const Login = ({}) => {
 
   const check = async () => {
     setIsLoading(true);
-    if (localStorage.getItem('token') === null ) {
+    if (localStorage.getItem('keycloakToken') === null ) {
       console.log("Not token")
     } else {
       console.log("Token")

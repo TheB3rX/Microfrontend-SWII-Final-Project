@@ -8,7 +8,7 @@ const PrivateRoutes = () => {
     return !!token; // Returns true if token exists, false otherwise
   };
 
-  return isAuthenticated() ? <Outlet /> : <Navigate to="/signup" />;
+  return isAuthenticated() ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export { PrivateRoutes };
