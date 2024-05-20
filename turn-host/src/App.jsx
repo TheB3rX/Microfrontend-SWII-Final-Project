@@ -7,17 +7,21 @@ import { MyTickets } from "./pages/tickets/MyTickets";
 import { GeneralTickets } from "./pages/tickets/GeneralTickets";
 import { PrivateRoutes } from "./routes/ProtectedRoute";
 import { LoginPage } from "./pages/login/Login";
+import { PrivateAdminRoutes } from "./routes/PrivateAdminRoutes";
 
 const App = () => {
   return (
     <div className="App">
       <Router>
         <Routes>
-          <Route element={<PrivateRoutes />}>
-            <Route path="/" element={<MyTickets />} />
-            <Route path="/ticket-table" element={<GeneralTickets />} />
+          <Route element={<PrivateRoutes/>}>
+            <Route path="/" element={<MyTickets/>} />
+            <Route path="/ticket-table" element={<GeneralTickets/>} />
           </Route>
-          <Route path="/signup" element={<Signup />} />
+          <Route element={<PrivateAdminRoutes/>}>
+            <Route path="/admin-panel" element={<GeneralTickets/>}/>
+          </Route>
+          <Route path="/signup" element={<Signup/>} />
           <Route path="/login" element={<LoginPage/>} />
         </Routes>
       </Router>
