@@ -1,14 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
-
-import "./index.{{CSS_EXTENSION}}";
+import "./index.css";
+import { Navbar } from "./Navbar/Navbar";
 
 const App = () => (
-  <div className="{{CONTAINER}}">
-    <div>Name: {{ NAME }}</div>
-    <div>Framework: {{ FRAMEWORK }}</div>
-    <div>Language: {{ LANGUAGE }}</div>
-    <div>CSS: {{ CSS }}</div>
+  <div>
+    <Navbar />
+    <div className="container">
+      {/* Resto del contenido de tu aplicación */}
+    </div>
   </div>
 );
+
 ReactDOM.render(<App />, document.getElementById("app"));
