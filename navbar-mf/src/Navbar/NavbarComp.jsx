@@ -9,9 +9,9 @@ export const NavbarComp = ({logoutFunc}) => {
     <>
       <Navbar bg="dark" data-bs-theme="dark">
         <Container>
-          <Navbar.Brand as={NavLink} to="/">Navbar</Navbar.Brand>
+          <Navbar.Brand as={NavLink} to="/">TurnoSmart</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link as={NavLink} to="/turns">Home</Nav.Link>
+            <Nav.Link as={NavLink} to="/turns">Turnos</Nav.Link>
             <Nav.Link as={NavLink} to="/piripiti">Features</Nav.Link>
             <Nav.Link onClick={logoutFunc}>Logout</Nav.Link>
           </Nav>

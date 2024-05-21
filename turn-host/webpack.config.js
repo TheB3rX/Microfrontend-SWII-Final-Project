@@ -46,6 +46,7 @@ module.exports = (_, argv) => ({
       remotes: {
         signup: "signup_mf@http://localhost:3001/remoteEntry.js",
         navbar: "navbar_mf@http://localhost:3002/remoteEntry.js",
+        userScreen: "ticket_management_mf@http://localhost:3003/remoteEntry.js",
       },
       exposes: {},
       shared: {
