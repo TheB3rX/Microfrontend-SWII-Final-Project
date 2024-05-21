@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Signup.css";
+import './Signup.css';
 
 export const Signup = ({SendNewUserData}) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -99,114 +99,114 @@ export const Signup = ({SendNewUserData}) => {
   return (
     <>
       <form className="formulary" onSubmit={handleSubmit}>
-        <label>
-          <h3>Email</h3>
-          <input
-            className="input-field"
-            type="email"
-            name="email"
-            value={input.email}
-            onChange={onInputChange}
-            onBlur={() => validateInput("email", input.email)} // Manually call validateInput on blur
-          />
-          {error.email && <span className="err"> {error.email}</span>}
-        </label>
-        <label>
-          <h3>Username</h3>
-          <input
-            className="input-field"
-            type="text"
-            name="username"
-            value={input.username}
-            onChange={onInputChange}
-            onBlur={() => validateInput("username", input.username)} // Manually call validateInput on blur
-          />
-          {error.username && <span className="err"> {error.username}</span>}
-        </label>
-        <label>
-          <h3>First name</h3>
-          <input
-            className="input-field"
-            type="text"
-            name="firstName"
-            value={input.firstName}
-            onChange={onInputChange}
-            onBlur={() => validateInput("firstName", input.firstName)} // Manually call validateInput on blur
-          />
-          {error.firstName && <span className="err"> {error.firstName}</span>}
-        </label>
-        <label>
-          <h3>Last name</h3>
-          <input
-            className="input-field"
-            type="text"
-            name="lastName"
-            value={input.lastName}
-            onChange={onInputChange}
-            onBlur={() => validateInput("lastName", input.lastName)} // Manually call validateInput on blur
-          />
-          {error.lastName && <span className="err"> {error.lastName}</span>}
-        </label>
-        <label>
-          <h3>Organization</h3>
-          <input
-            className="input-field"
-            type="text"
-            name="organization"
-            value={input.organization}
-            onChange={onInputChange}
-            onBlur={() => validateInput("lastName", input.organization)} // Manually call validateInput on blur
-          />
-          {error.organization && (
-            <span className="err"> {error.organization}</span>
-          )}
-        </label>
+          <label>
+            <h3>Email</h3>
+            <input
+              className="input-field"
+              type="email"
+              name="email"
+              value={input.email}
+              onChange={onInputChange}
+              onBlur={() => validateInput("email", input.email)} // Manually call validateInput on blur
+            />
+            {error.email && <span className="err"> {error.email}</span>}
+          </label>
+          <label>
+            <h3>Username</h3>
+            <input
+              className="input-field"
+              type="text"
+              name="username"
+              value={input.username}
+              onChange={onInputChange}
+              onBlur={() => validateInput("username", input.username)} // Manually call validateInput on blur
+            />
+            {error.username && <span className="err"> {error.username}</span>}
+          </label>
+          <label>
+            <h3>First name</h3>
+            <input
+              className="input-field"
+              type="text"
+              name="firstName"
+              value={input.firstName}
+              onChange={onInputChange}
+              onBlur={() => validateInput("firstName", input.firstName)} // Manually call validateInput on blur
+            />
+            {error.firstName && <span className="err"> {error.firstName}</span>}
+          </label>
+          <label>
+            <h3>Last name</h3>
+            <input
+              className="input-field"
+              type="text"
+              name="lastName"
+              value={input.lastName}
+              onChange={onInputChange}
+              onBlur={() => validateInput("lastName", input.lastName)} // Manually call validateInput on blur
+            />
+            {error.lastName && <span className="err"> {error.lastName}</span>}
+          </label>
+          <label>
+            <h3>Organization</h3>
+            <input
+              className="input-field"
+              type="text"
+              name="organization"
+              value={input.organization}
+              onChange={onInputChange}
+              onBlur={() => validateInput("lastName", input.organization)} // Manually call validateInput on blur
+            />
+            {error.organization && (
+              <span className="err"> {error.organization}</span>
+            )}
+          </label>
 
-        <label>
-          <h3>Password</h3>
-          <input
-            className="input-field"
-            name="password"
-            value={input.password}
-            type={showPassword ? "text" : "password"}
-            onChange={onInputChange}
-            onBlur={() => validateInput("password", input.password)} // Manually call validateInput on blur
-          />
-          {error.password && <span className="err"> {error.password}</span>}
-        </label>
-        <label>
-          <h3>Confirm Password</h3>
-          <input
-            className="input-field"
-            name="confirmPassword"
-            value={input.confirmPassword}
-            type={showPassword ? "text" : "password"}
-            onChange={onInputChange}
-            onBlur={() =>
-              validateInput("confirmPassword", input.confirmPassword)
-            } // Manually call validateInput on blur
-          />
-          {error.confirmPassword && (
-            <span className="err"> {error.confirmPassword}</span>
-          )}
-        </label>
-        <div id="show-pw-text">
-          <p>Show password</p>
-          <input
-            id="check"
-            type="checkbox"
-            checked={showPassword}
-            onChange={() => setShowPassword((prev) => !prev)}
-          />
-        </div>
+          <label>
+            <h3>Password</h3>
+            <input
+              className="input-field"
+              name="password"
+              value={input.password}
+              type={showPassword ? "text" : "password"}
+              onChange={onInputChange}
+              onBlur={() => validateInput("password", input.password)} // Manually call validateInput on blur
+            />
+            {error.password && <span className="err"> {error.password}</span>}
+          </label>
+          <label>
+            <h3>Confirm Password</h3>
+            <input
+              className="input-field"
+              name="confirmPassword"
+              value={input.confirmPassword}
+              type={showPassword ? "text" : "password"}
+              onChange={onInputChange}
+              onBlur={() =>
+                validateInput("confirmPassword", input.confirmPassword)
+              } // Manually call validateInput on blur
+            />
+            {error.confirmPassword && (
+              <span className="err"> {error.confirmPassword}</span>
+            )}
+          </label>
+          <div id="show-pw-text">
+            <p>Show password</p>
+            <input
+              id="check"
+              type="checkbox"
+              checked={showPassword}
+              onChange={() => setShowPassword((prev) => !prev)}
+            />
+          </div>
         <div className="submit-button-div">
-          <input
-            id="submit-button"
-            type="submit"
-            name="submit"
-            value="Submit"
-            onSubmit={SendNewUserData}
-          />
+            <input
+              id="submit-button"
+              type="submit"
+              name="submit"
+              value="Submit"
+              onSubmit={SendNewUserData}
+            />
         </div>
       </form>{" "}
     </>
