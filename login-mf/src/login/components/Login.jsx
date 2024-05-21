@@ -1,42 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { isAuthenticated, logout, getToken } from "../../auth/keycloak.js";
 import axios from "axios";
 import { LineWave } from "react-loader-spinner";
 
-const Login = () => {
-  const [keycloakAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+const Login = ({}) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [authenticatedText, setAuthenticatedText] = useState("not");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const auth = async () => {
-      await isAuthenticated().then(() => {
-        setIsAuthenticated(true);
-      });
-      setIsLoading(false);
-    };
-    auth();
   }, []);
 
   const check = async () => {
     setIsLoading(true);
-    try {
-      const response = await axios.get("http://localhost:9000/hello-2", {
-        headers: {
-          Authorization: "Bearer " + getToken(),
-        },
-      });
-      setAuthenticatedText(response.data);
-    } catch (error) {
-      setAuthenticatedText("You don't have customer privileges");
-    } finally {
-      setIsLoading(false);
+    if (localStorage.getItem('keycloakToken') === null ) {
+      console.log("Not token")
+    } else {
+      console.log("Token")
     }
   };
 
-  const tma_logout = () => {
-    logout();
-  };
+  const logout = () => {
+    setIsLoggedIn(!isLoggedIn);
+  }
 
   return (
     <div>
@@ -72,7 +57,7 @@ const Login = () => {
                   <button
                     type="button"
                     className="text-blue-800"
-                    onClick={tma_logout}
+                    onClick={logout}
                   >
                     Logout
                   </button>

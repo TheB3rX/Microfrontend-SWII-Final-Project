@@ -44,9 +44,12 @@ module.exports = (_, argv) => ({
       name: "turn_host",
       filename: "remoteEntry.js",
       remotes: {
-        loginComponent: "login_mf@http://localhost:3001/remoteEntry.js",
-        signupComponent: "login_mf@http://localhost:3001/remoteEntry.js",
-        navbarComponent: "navbar_mf@http://localhost:3002/remoteEntry.js"
+        signupComponent:"login_mf@http://localhost:3001/remoteEntry.js",
+        loginComponent:"login_mf@http://localhost:3001/remoteEntry.js",
+        ticketModalComponent: "ticket_management_mf@http://localhost:3003/remoteEntry.js",
+        // navbarComponent: "navbar_mf@http://localhost:3002/remoteEntry.js",
+        // adminComponent: "admin_mf@http://localhost:3005/remoteEntry.js",
+        // userComponent: "users_mf@http://localhost:3004/remoteEntry.js"
       },
       exposes: {},
       shared: {

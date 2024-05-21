@@ -44,7 +44,9 @@ module.exports = (_, argv) => ({
       name: "admin_mf",
       filename: "remoteEntry.js",
       remotes: {},
-      exposes: {},
+      exposes: {
+        "./App": "./src/App"
+      },
       shared: {
         ...deps,
         react: {

@@ -21,14 +21,15 @@ export const TicketCreationAPI = ({
     redirect: "follow"
   };
 
-    return fetch("http://localhost:9001/create", requestOptions)
-      .then((response) => response.text())
-      .then((result) => {
-        console.log("Result");
-        true
-      })
-      .catch((error) => {
-        console.log(error);
-        reject(error);
-      });
+  return fetch("http://localhost:9001/turns/create", requestOptions)
+    .then((response) => response.text())
+    .then((result) => {
+      console.log(result)
+      console.log("Result");
+      true
+    })
+    .catch((error) => {
+      console.log(error);
+      reject(error);
+    });
 }

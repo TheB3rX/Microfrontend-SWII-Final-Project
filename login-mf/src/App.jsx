@@ -6,10 +6,10 @@ import Login from "./login/components/Login";
 import { Signup } from "./signup/components/Signup";
 
 const App = () => (
-  <div className="container">
-    <Login />
-    {/* <Signup/> */}
-  </div>
+  <>
+    <Signup/>
+    <Login/>
+  </>
 );
 
 ReactDOM.createRoot(document.getElementById("app")).render(<App />);
