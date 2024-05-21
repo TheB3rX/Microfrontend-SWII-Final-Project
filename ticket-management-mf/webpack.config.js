@@ -45,7 +45,6 @@ module.exports = (_, argv) => ({
       filename: "remoteEntry.js",
       remotes: {},
       exposes: {
-        "./TicketCRUD": "./src/components/ticket/TicketCRUD"
       },
       shared: {
         ...deps,
