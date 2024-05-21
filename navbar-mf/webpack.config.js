@@ -45,7 +45,7 @@ module.exports = (_, argv) => ({
       filename: "remoteEntry.js",
       remotes: {},
       exposes: {
-        "./Navbar":"./src/Navbar/Navbar.jsx"
+        "./NavbarComp":"./src/Navbar/NavbarComp.jsx"
       },
       shared: {
         ...deps,

@@ -1,12 +1,11 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
+import { NavbarComp } from "./Navbar/NavbarComp";
+import { BrowserRouter } from "react-router-dom";
 
-import "./index.css";
-import { Navbar } from "./Navbar/Navbar";
+const App = () => <NavbarComp />;
 
-const App = () => (
-  <div className="container">
-    <Navbar/>
-  </div>
+ReactDOM.createRoot(document.getElementById("app")).render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
 );
-ReactDOM.render(<App />, document.getElementById("app"));

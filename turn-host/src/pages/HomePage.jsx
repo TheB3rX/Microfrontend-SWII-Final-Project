@@ -1,12 +1,12 @@
 import { useEffect } from "react";
-import { isAuthenticated, login } from "../auth/keycloak";
+import { isAuthenticated, login, logout } from "../auth/keycloak";
+import { NavbarComp } from "navbar/NavbarComp";
 
 export const HomePage = () => {
   useEffect(() => {
-    
     const authenticated = async () => {
       return await isAuthenticated();
-    }
+    };
 
     const auth = authenticated();
     if (!auth) {
@@ -14,5 +14,10 @@ export const HomePage = () => {
     }
   }, []);
 
-  return <div>Home Page xD </div>;
+  return (
+    <>
+      <NavbarComp logoutFunc={logout} />
+      <div>Home Page xD </div>
+    </>
+  );
 };
