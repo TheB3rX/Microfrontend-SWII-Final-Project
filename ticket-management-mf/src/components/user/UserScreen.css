@@ -1,0 +1,11 @@
+.tickets-container {
+  margin: 4dvh 10dvw;
+  padding: 0.5dvh 3dvh;
+}
+
+.option-menu {
+  margin: 5dvh 2dvw;
+  margin-bottom:4dvh;
+  display: flex;
+  justify-content: space-between;
+}

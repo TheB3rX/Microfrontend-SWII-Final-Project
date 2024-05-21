@@ -1,10 +1,11 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
-const Dotenv = require("dotenv-webpack");
+const Dotenv = require('dotenv-webpack');
 const deps = require("./package.json").dependencies;
+const path = require('path');
 module.exports = (_, argv) => ({
   output: {
-    publicPath: "http://localhost:3000/",
+    publicPath: "http://localhost:3001/",
   },
 
   resolve: {
@@ -12,7 +13,7 @@ module.exports = (_, argv) => ({
   },
 
   devServer: {
-    port: 3000,
+    port: 3001,
     historyApiFallback: true,
   },
 
@@ -41,18 +42,12 @@ module.exports = (_, argv) => ({
 
   plugins: [
     new ModuleFederationPlugin({
-      name: "turn_host",
+      name: "signup_mf",
       filename: "remoteEntry.js",
-      remotes: {
-        signup: "signup_mf@http://localhost:3001/remoteEntry.js",
-        navbar: "navbar_mf@http://localhost:3002/remoteEntry.js",
-        userScreen: "ticket_management_mf@http://localhost:3003/remoteEntry.js",
-        adminScreen: "ticket_management_mf@http://localhost:3003/remoteEntry.js",
-        editModal: "ticket_management_mf@http://localhost:3003/remoteEntry.js",
-        createModal: "ticket_management_mf@http://localhost:3003/remoteEntry.js",
-        deleteModal: "ticket_management_mf@http://localhost:3003/remoteEntry.js",
+      remotes: {},
+      exposes: {
+        "./Signup": "./src/signup/components/Signup.jsx",
       },
-      exposes: {},
       shared: {
         ...deps,
         react: {
@@ -68,6 +63,8 @@ module.exports = (_, argv) => ({
     new HtmlWebPackPlugin({
       template: "./src/index.html",
     }),
-    new Dotenv(),
+    new Dotenv({
+      path: path.join(__dirname, "./.env")
+    })
   ],
 });

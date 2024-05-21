@@ -1,34 +1,32 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import "./index.css";
-import Signup from "./pages/signup/Signup";
-import { MyTickets } from "./pages/tickets/MyTickets";
-import { GeneralTickets } from "./pages/tickets/GeneralTickets";
-import { PrivateRoutes } from "./routes/ProtectedRoute";
-import { LoginPage } from "./pages/login/Login";
-import { PrivateAdminRoutes } from "./routes/PrivateAdminRoutes";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HomePage } from "./pages/HomePage";
+import {TurnsPage} from './pages/TurnsPage'
+import { ProtectedRoute } from "./routes/ProtectedRoute";
+import { SignupPage } from "./pages/SignupPage";
+import { AdminTurnsPage } from "./pages/AdminTurnsPage";
+import { CreatePage } from "./pages/CreatePage";
+import { EditPage } from "./pages/EditPage";
+import { DeletePage } from "./pages/DeletePage";
 
-const App = () => {
-  return (
-    <div className="App">
-      <Router>
-        <Routes>
-          <Route element={<PrivateRoutes/>}>
-            <Route path="/" element={<MyTickets/>} />
-            <Route path="/ticket-table" element={<GeneralTickets/>} />
-          </Route>
-          <Route element={<PrivateAdminRoutes/>}>
-            <Route path="/admin-panel" element={<GeneralTickets/>}/>
-          </Route>
-          <Route path="/signup" element={<Signup/>} />
-          <Route path="/login" element={<LoginPage/>} />
-        </Routes>
-      </Router>
-    </div>
-  );
-};
 
-export default App;
+const App = () => (
+  <Routes>
+    <Route element={<ProtectedRoute/>}>
+      <Route element={<TurnsPage/>} path="/" exact/>
+      <Route path="/turns" element={<TurnsPage />} />
+      <Route path="/adminTurns" element={<AdminTurnsPage/>} />
+      <Route path="/create" element={<CreatePage/>} />
+      <Route path="/edit" element={<EditPage/>} />
+      <Route path="/delete" element={<DeletePage/>} />
+    </Route>
+    <Route element={<SignupPage/>} path="/signup" exact />
+  </Routes>
+);
 
-ReactDOM.render(<App />, document.getElementById("app"));
+ReactDOM.createRoot(document.getElementById("app")).render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+);
