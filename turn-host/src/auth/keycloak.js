@@ -24,7 +24,7 @@ export const isAuthenticated = async () => {
 };
 
 export const keycloakUserId = () => {
-  keycloak.subject;
+  return keycloak.subject;
 };
 
 export const login = () => {

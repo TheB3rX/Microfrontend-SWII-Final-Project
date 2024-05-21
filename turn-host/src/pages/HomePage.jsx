@@ -11,6 +11,7 @@ export const HomePage = () => {
     const auth = authenticated();
     if (!auth) {
       login();
+    } else {
     }
   }, []);
 
