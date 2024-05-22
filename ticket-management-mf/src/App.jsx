@@ -11,7 +11,7 @@ import { AdminScreen } from "./components/admin/AdminScreen";
 const App = () => (
   <div className="container">
     {/* Ticket Works */}
-    {/* <CreateTicket/> */}
+    <CreateTicket/>
     {/* <DeleteTicket/> */}
     {/* <EditTicket/> */}
     {/* <UserScreen/> */}
