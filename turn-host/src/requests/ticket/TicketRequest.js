@@ -1,10 +1,13 @@
-export const createTicket = ({dependentId, userId, token}) => {
+import { keycloakUserId, getToken } from "../../auth/keycloak";
+
+export const createTicket = ({dependentId}) => {
+  const token = getToken;
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append(`Authorization", "Bearer ${token}`);
 
   const raw = JSON.stringify({
-    "userId": userId,
+    "userId": keycloakUserId,
     "dependentId": dependentId 
   });
 
