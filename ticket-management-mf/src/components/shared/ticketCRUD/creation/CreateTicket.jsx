@@ -1,56 +1,60 @@
-import React, { useEffect, useState } from 'react'
-import './TicketCreation.css'
+import React, { useEffect, useState } from 'react';
+import Select from 'react-select';
+import './CreateTicket.css';
 
-export const CreateTicket = () => {
+export const CreateTicket = ({ onClose }) => {
+  const [dependant, setDependant] = useState('');
+  const [ticket, setTicketInput] = useState({
+    userId: '',
+    dependentId: '',
+  });
 
-    const [ticket, setTicketInput] = useState({
-        userId: '',
-        dependentId: '',
-    });
+  const dependantList = [
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' }  
+  ];
 
-    const onInputChange = e => {
-        console.log(`Changing: ${e.target}`)
-        const { name, value } = e.target;
-        setTicketInput(prev => ({
-        ...prev,
-        [name]: value
-        }));
-    };
-    
-    useEffect(() => {
-        console.log(ticket)
-    }, [ticket])
+  const onInputChange = e => {
+    const { name, value } = e.target;
+    setTicketInput(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  useEffect(() => {
+    console.log(ticket);
+  }, [ticket]);
 
   return (
-    <>
-      <div className='ticket-formulary'>
-        <div className='formulary-fields'>
-          <div className='field-group'>
-            <label name="username">Ticket Name</label> 
-            <input type="text" name="ticket-name"/>
-          </div>
-          <div className='field-group'>
-            <label name="username">Ticket Holder</label> 
-            <input type="text" name="ticket-holder" onChange={onInputChange} value={ticket.userId}/>
-          </div>
-          <div className='field-group' id='ticket-date'>
-            <label name="username">Ticket date</label> 
-            <input type="datetime-local" name="ticket-date"/>
-            </div>
-          <div className='field-group' id='submit-group'>
-            <label name="username">Ticket Code</label> 
-            <input type="text" name="ticket-code" onChange={onInputChange} value={ticket.dependentId}/>
-          </div>
+    <div className='ticket-formulary'>
+      <div className='formulary-fields'>
+        <div className='field-group' id='dependant-selector'>
+          <label className="dependant">Seleccione un dependiente</label> 
+          <Select 
+            options={dependantList} 
+            defaultValue={dependantList[0]}
+            onChange={option => setDependant(option.value)}
+          />
         </div>
-        <button 
-          className='action-button' 
-          type='button' 
-          value='Confirm'
-          onClick={() => sendOperation}
-        >
-            Create
-        </button>
+        {/* Uncomment and complete these fields if needed */}
+        {/* <div className='field-group' id='ticket-date'>
+          <label name="username">Ticket date</label>
+          <input type="datetime-local" name="ticket-date"/>
+        </div>
+        <div className='field-group' id='submit-group'>
+          <label name="username">Ticket Code</label>
+          <input type="text" name="ticket-code" onChange={onInputChange} value={ticket.dependentId}/>
+        </div> */}
       </div>
-    </>
-  )
-}
+      <button 
+        className='action-button' 
+        type='button' 
+        onClick={onClose}
+      >
+        Create
+      </button>
+    </div>
+  );
+};

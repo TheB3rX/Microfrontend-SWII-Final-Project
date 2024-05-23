@@ -1,0 +1,62 @@
+body {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings:
+    "slnt" 0;
+  font-family: Inter;
+  font-weight: 100;
+  margin-bottom: auto;
+}
+
+.formulary {
+  background-color: var(--background-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 5dvh 25dvw;
+  padding: 2dvh;
+  border-radius: 15px;
+  color: var(--text-color);
+}
+
+.field-container {
+  display: block;
+}
+
+.input-field {
+  padding-left: 1dvw;
+  font-size: larger;
+  display: block;
+  height: 4dvh;
+  width: 25dvw;
+  background-color: var(--field-color);
+  border-radius: var(--input-border-radius);
+  border: 0px;
+}
+
+#show-pw-text {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 15px;
+}
+
+#show-pw-text p {
+  font-weight: 500;
+  margin-right: 10px; /* Add this to give some space between p and input */
+}
+
+.submit-button-div {
+  display: block;
+}
+
+#submit-button {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: var(--confirm-button-color);
+  border: 0px;
+  padding: 0.5dvw 4dvh;
+  border-radius: var(--button-border-radius);
+}

@@ -1,42 +1,59 @@
-import React, { useState } from 'react'
-import './UserScreen.css'
+import React, { useState } from 'react';
+import './UserScreen.css';
 import Ticket from '../shared/ticketView/Ticket';
 import { CheckboxAll } from '../shared/edition/CheckboxAll';
 import { ButtonGroup } from '../shared/edition/ButtonGroup';
+import { CreateTicket } from '../shared/ticketCRUD/creation/CreateTicket';
+import { DeleteTicket } from '../shared/ticketCRUD/delete/DeleteTicket';
 
 export const UserScreen = () => {
+  const [isChildVisible, setIsChildVisible] = useState([false], [false]);
   const [tickets, setTickets] = useState([]);
   const [allChecked, setAllChecked] = useState(false);
+
+  const handleToggle = (index) => {
+    setIsChildVisible(prevState => {
+      const newState = [...prevState];
+      newState[index] = !newState[index];
+      return newState;
+    });
+  };
 
   const handleAddTicket = () => {
     setTickets([...tickets, {
       id: tickets.length + 1,
       checked: allChecked 
     }]);
-  }
+  };
 
-  const handleAllChecked = () => {
+  const handleAllChecked = (e) => {
     const checked = e.target.checked;
     setAllChecked(checked);
     setTickets(tickets.map(ticket => ({
-     ...ticket,
+      ...ticket,
       checked: checked
     })));
-  }
-    
+  };
+
   return (
     <div>
       <div className="tickets-container">
         <div className="option-menu">
           <CheckboxAll allChecked={allChecked} onChange={handleAllChecked} />
-          <ButtonGroup handleAddTicket={handleAddTicket} />
+          <ButtonGroup 
+            handleAddTicket={handleAddTicket} 
+            onToggleAdd={() => handleToggle(0)} 
+            onToggleDelete={() => handleToggle(1)}
+          />
         </div>
         <div className="container-checkbox">
+          {isChildVisible[0] ? <CreateTicket onClose={() => handleToggle(0)}/> : null}
+          {isChildVisible[1] ? <DeleteTicket onClose={() => handleToggle(1)}/> : null}
           {tickets.map((ticket) => (
             <Ticket key={ticket.id} checked={ticket.checked} />
           ))}
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
