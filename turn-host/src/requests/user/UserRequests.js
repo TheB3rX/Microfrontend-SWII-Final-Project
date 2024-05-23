@@ -30,7 +30,6 @@ export const createUser = ({
   };
 
   fetch("http://localhost:9000/keycloak/user/create", requestOptions)
-    .then((response) => response.text())
-    .then((result) => console.log(result))
+    .then((response) => {return response.json()})
     .catch((error) => console.error(error));
 }
