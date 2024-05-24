@@ -30,6 +30,7 @@ body {
   display: block;
   height: 4dvh;
   width: 25dvw;
+  margin-bottom: 1dvh;
   background-color: var(--field-color);
   border-radius: var(--input-border-radius);
   border: 0px;
