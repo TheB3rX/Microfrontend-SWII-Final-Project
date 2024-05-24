@@ -45,9 +45,8 @@ export const SignupIdentityProvider = ({SendIdentityProviderData}) => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    SendIdentityProviderData();
+  const handleSubmit = () => {
+    SendIdentityProviderData(input);
   }
 
   return (
@@ -109,7 +108,7 @@ export const SignupIdentityProvider = ({SendIdentityProviderData}) => {
               type="button"
               name="submit"
               value="Submit"
-              onClick={handleSubmit(event)}
+              onClick={handleSubmit}
             />
         </div>
       </form>{" "}

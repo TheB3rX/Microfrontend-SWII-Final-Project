@@ -14,7 +14,6 @@ export const ProtectedRoute = () => {
   useEffect(() => {
     const checkAuth = async () => {
       const authenticated = await isAuthenticated();
-
       if (authenticated) {
         const token = getToken();
         const userId = keycloakUserId();

@@ -23,9 +23,9 @@ export const isAuthenticated = async () => {
 };
 
 export const keycloakUserId = () => keycloak.subject;
-
 export const login = () => keycloak.login();
-
 export const logout = () => keycloak.logout();
-
 export const getToken = () => keycloak.token;
+export const getUserEmail = () => {
+  keycloak.loadUserInfo();
+}
