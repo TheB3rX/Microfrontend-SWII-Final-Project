@@ -18,9 +18,9 @@ const App = () => (
       <Route path="/adminTurns" element={<AdminTurnsPage/>} />
       <Route path="/create" element={<CreatePage/>} />
       <Route path="/delete" element={<DeletePage/>} />
+      <Route element={<IdentitySignupPage/>} path="/complete-information" exact />
     </Route>
     {/* For when someone has identity signed up and havent completed information */}
-    <Route element={<IdentitySignupPage/>} path="/complete-information" exact />
     <Route element={<SignupPage/>} path="/signup" exact />
   </Routes>
 );

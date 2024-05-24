@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 import './CreateTicket.css';
 
-export const CreateTicket = ({ onClose }) => {
+export const CreateTicket = ({ onClose, dependantList=[], ticketList=[]}) => {
   const [dependant, setDependant] = useState('');
   const [ticket, setTicketInput] = useState({
     userId: '',
     dependentId: '',
   });
 
-  const dependantList = [
+  const ist = [
     { value: 'chocolate', label: 'Chocolate' },
     { value: 'strawberry', label: 'Strawberry' },
     { value: 'vanilla', label: 'Vanilla' }  

@@ -17,8 +17,6 @@ export const isAuthenticated = async () => {
     });
   }
   const authenticated = await initPromise;
-  console.log(authenticated);
-  console.log(`User is ${authenticated ? "authenticated" : "not authenticated"}`);
   return authenticated;
 };
 
@@ -26,6 +24,8 @@ export const keycloakUserId = () => keycloak.subject;
 export const login = () => keycloak.login();
 export const logout = () => keycloak.logout();
 export const getToken = () => keycloak.token;
-export const getUserEmail = () => {
-  keycloak.loadUserInfo();
+export const getUserEmail = async () => {
+  const userInfo = await keycloak.loadUserInfo()
+    .catch((error) => {console.log("An error", error)});
+  return userInfo.email
 }

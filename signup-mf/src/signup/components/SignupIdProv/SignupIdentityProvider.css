@@ -53,6 +53,7 @@ body {
 }
 
 #submit-button {
+  margin-top: 5dvh;
   align-items: center;
   justify-content: center;
   text-align: center;

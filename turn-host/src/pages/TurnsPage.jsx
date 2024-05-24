@@ -1,24 +1,26 @@
+import React from "react";
 import { UserScreen } from "userScreen/UserScreen";
 import { NavbarComp } from "navbar/NavbarComp";
-import { useEffect } from "react";
-import { isAuthenticated, login , logout} from "../auth/keycloak";
+import { useAuth } from "../hooks/useAuth";
+import { logout } from "../auth/keycloak";
 
 export const TurnsPage = () => {
-  useEffect(() => {
-    const authenticated = async () => {
-      return await isAuthenticated();
-    };
+  const { authData, dependantList, loading } = useAuth();
 
-    const auth = authenticated();
-    if (!auth) {
-      login();
-    }
-  }, []);
+  const ist = [
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' }  
+  ];
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
-       <NavbarComp logoutFunc={logout} />
-      <UserScreen />
+      <NavbarComp logoutFunc={logout} />
+      <UserScreen dependantList={dependantList} ticketList={ist} />
     </>
   );
 };
