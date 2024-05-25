@@ -22,6 +22,9 @@ export const IdentitySignupPage = () => {
       };
 
       try {
+        console.log(
+          dataForm
+        )
         await addDataToUser(dataForm);
       } catch (error) {
         console.log(error);

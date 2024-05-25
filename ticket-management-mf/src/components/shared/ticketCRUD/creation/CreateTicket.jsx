@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 import './CreateTicket.css';
 
-export const CreateTicket = ({ onClose, dependantList=[], ticketList=[]}) => {
+export const CreateTicket = ({ onClose, dependantList=[]}) => {
   const [dependant, setDependant] = useState('');
   const [ticket, setTicketInput] = useState({
     userId: '',
@@ -31,6 +31,8 @@ export const CreateTicket = ({ onClose, dependantList=[], ticketList=[]}) => {
     <div className='ticket-formulary'>
       <div className='formulary-fields'>
         <div className='field-group' id='dependant-selector'>
+          <label className="ticket-date">Fecha:</label>
+          <input type="datetime-local" min="08:00" max="18:00" id="date" name="ticket-date" required/>
           <label className="dependant">Seleccione un dependiente</label> 
           <Select 
             options={dependantList} 
