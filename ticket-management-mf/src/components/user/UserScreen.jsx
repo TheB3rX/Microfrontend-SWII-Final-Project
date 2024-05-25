@@ -19,6 +19,8 @@ export const UserScreen = ({ dependantList = [], ticketList = [] }) => {
     });
   };
 
+  console.log(ticketList)
+
   const handleAddTicket = () => {
     setTickets([...tickets, {
       id: tickets.length + 1,

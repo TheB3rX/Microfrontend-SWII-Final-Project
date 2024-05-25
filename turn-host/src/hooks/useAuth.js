@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getToken, isAuthenticated, keycloakUserId, login } from "../auth/keycloak";
 import { getAvailableDependantList } from "../requests/general/Dependant";
+import { getUserTurns } from "../requests/client/ClientRequest";
 
 export const useAuth = () => {
   const [authData, setAuthData] = useState({
@@ -9,6 +10,7 @@ export const useAuth = () => {
     userId: null,
   });
   const [dependantList, setDependantList] = useState([]);
+  const [turnList, setTurnList] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -24,6 +26,9 @@ export const useAuth = () => {
         });
         const listOfDependants = getAvailableDependantList();
         setDependantList(listOfDependants);
+        const listOfTurns = await getUserTurns({token, userId})
+        console.log("TURNLIST",listOfTurns)
+        setTurnList(listOfTurns);
       } else {
         login();
       }
@@ -33,5 +38,5 @@ export const useAuth = () => {
     checkAuth();
   }, []);
 
-  return { authData, dependantList, loading };
+  return { authData, dependantList, turnList, loading };
 };

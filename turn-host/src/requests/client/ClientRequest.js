@@ -22,22 +22,19 @@ export const getClientAuthorization = () => {
     .catch((error) => console.error(error));
 }
 
-export const getUserTurns = async ({token, userId, dependentId, scheduledDate, isAttended}) => {
+export const getUserTurns = async ({token, userId}) => {
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("Authorization", `Bearer ${token}`);
 
-  const raw = {
-    "userId": userId
-  }
-
   const requestOptions = {
     method: "GET",
     headers: myHeaders,
-    body: raw,
     redirect: "follow"
   };
 
-  const turnList = await fetch(`http://localhost:9001/turns/getUserTurns/${userId}`, requestOptions);
-  return turnList;
+  const userTurns = fetch(`http://localhost:9001/turns/getUserTurns/${userId}`, requestOptions)
+    .then((response) => response.text())
+    .catch((error) => console.log(error))
+  return userTurns;
 }

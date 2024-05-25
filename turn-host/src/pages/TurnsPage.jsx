@@ -5,7 +5,7 @@ import { useAuth } from "../hooks/useAuth";
 import { logout } from "../auth/keycloak";
 
 export const TurnsPage = () => {
-  const { authData, dependantList, loading } = useAuth();
+  const { authData, dependantList, ticketList, loading } = useAuth();
 
   const ist = [
     { value: 'chocolate', label: 'Chocolate' },
@@ -20,7 +20,7 @@ export const TurnsPage = () => {
   return (
     <>
       <NavbarComp logoutFunc={logout} />
-      <UserScreen dependantList={dependantList} ticketList={ist} />
+      <UserScreen dependantList={dependantList} ticketList={ticketList} />
     </>
   );
 };
