@@ -1,6 +1,6 @@
 import { getClientAuthorization } from "../client/ClientRequest";
 
-export const createUser = ({
+export const createUser = async ({
   username,
   email,
   firstName = "",
@@ -8,7 +8,8 @@ export const createUser = ({
   password,
   organization
 }) => {
-  const clientToken = getClientAuthorization
+  const clientToken = getClientAuthorization();
+  console.log(clientToken)
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("Authorization", `Bearer ${clientToken}`);
@@ -29,7 +30,7 @@ export const createUser = ({
     redirect: "follow"
   };
 
-  fetch("http://localhost:9000/keycloak/user/create", requestOptions)
-    .then((response) => {return response.json()})
-    .catch((error) => console.error(error));
+  // fetch("http://localhost:9000/keycloak/user/create", requestOptions)
+  //   .then((response) => {return response.json()})
+    // .catch((error) => console.error(error));
 }

@@ -1,4 +1,4 @@
-export const getClientAuthorization = () => {
+export const getClientAuthorization = async () => {
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
@@ -14,12 +14,10 @@ export const getClientAuthorization = () => {
     redirect: "follow"
   };
 
-  fetch("http://localhost:8090/realms/TurnsManagementApp/protocol/openid-connect/token", requestOptions)
+  const clientAuthToken = fetch("http://localhost:8090/realms/TurnsManagementApp/protocol/openid-connect/token", requestOptions)
     .then((response) => response.text())
-    .then((result) => {
-      return result;
-    })
     .catch((error) => console.error(error));
+  return clientAuthToken;
 }
 
 export const getUserTurns = async ({token, userId}) => {
@@ -37,4 +35,28 @@ export const getUserTurns = async ({token, userId}) => {
     .then((response) => response.text())
     .catch((error) => console.log(error))
   return userTurns;
+}
+
+export const cancelUserTurn = async ({token, userId, dependentId, scheduledDate}) => {
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("Authorization", `Bearer ${token}`);
+
+  const raw = {
+    "id": userId,
+    "dependentId": dependentId,
+    "scheduledDate": scheduledDate
+  }
+  const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow"
+  }
+
+  const cancellation = fetch("http://localhost:9001/turns/update", requestOptions)
+    .then((response) => response.text)
+    .catch((error) => console.log(error));
+
+  return cancellation;
 }
