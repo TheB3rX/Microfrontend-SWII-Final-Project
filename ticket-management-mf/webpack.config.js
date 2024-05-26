@@ -48,7 +48,6 @@ module.exports = (_, argv) => ({
         "./UserScreen": "./src/components/user/UserScreen.jsx",
         "./AdminScreen": "./src/components/admin/AdminScreen",
         "./CreateTicket": "./src/components/shared/ticketCRUD/creation/CreateTicket",
-        "./EditTicket": "./src/components/shared/ticketCRUD/edit/EditTicket",
         "./DeleteTicket": "./src/components/shared/ticketCRUD/delete/DeleteTicket",
       },
       shared: {

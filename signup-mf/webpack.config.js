@@ -47,6 +47,7 @@ module.exports = (_, argv) => ({
       remotes: {},
       exposes: {
         "./Signup": "./src/signup/components/Signup.jsx",
+        "./SignupIdentityProvider": "./src/signup/components/SignupIdProv/SignupIdentityProvider",
       },
       shared: {
         ...deps,

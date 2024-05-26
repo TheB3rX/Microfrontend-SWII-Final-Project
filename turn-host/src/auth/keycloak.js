@@ -8,33 +8,24 @@ const initOptions = {
 
 const keycloak = new Keycloak(initOptions);
 
+let initPromise = null;
+
 export const isAuthenticated = async () => {
-  try {
-    const authenticated = await keycloak.init({
+  if (!initPromise) {
+    initPromise = keycloak.init({
       onLoad: "login-required",
     });
-    console.log(authenticated);
-    console.log(
-      `User is ${authenticated ? "authenticated" : "not authenticated"}`
-    );
-    return authenticated;
-  } catch (error) {
-    console.error("Failed to initialize adapter:", error);
   }
+  const authenticated = await initPromise;
+  return authenticated;
 };
 
-export const keycloakUserId = () => {
-  return keycloak.subject;
-};
-
-export const login = () => {
-  keycloak.login();
-};
-
-export const logout = () => {
-  keycloak.logout();
-};
-
-export const getToken = () => {
-  return keycloak.token;
-};
+export const keycloakUserId = () => keycloak.subject;
+export const login = () => keycloak.login();
+export const logout = () => keycloak.logout();
+export const getToken = () => keycloak.token;
+export const getUserEmail = async () => {
+  const userInfo = await keycloak.loadUserInfo()
+    .catch((error) => {console.log("An error", error)});
+  return userInfo.email
+}

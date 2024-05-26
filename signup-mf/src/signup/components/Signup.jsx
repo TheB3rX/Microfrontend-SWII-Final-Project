@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './Signup.css';
 
-export const Signup = ({SendNewUserData}) => {
+export const Signup = ({createNewUser}) => {
   const [showPassword, setShowPassword] = useState(false);
   const [input, setInput] = useState({
     email: "",
@@ -76,13 +76,12 @@ export const Signup = ({SendNewUserData}) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     // Extract values from the input state
-    const { email, username, firstName, lastName, organization, password } =
-      input;
+    const { email, username, firstName, lastName, organization, password } = input;
 
     try {
       const token = await serviceAccountLogin();
       console.log(token);
-      createUser({
+      createNewUser({
         email,
         username,
         firstName,
@@ -205,7 +204,7 @@ export const Signup = ({SendNewUserData}) => {
               type="submit"
               name="submit"
               value="Submit"
-              onSubmit={SendNewUserData}
+              onSubmit={handleSubmit}
             />
         </div>
       </form>{" "}

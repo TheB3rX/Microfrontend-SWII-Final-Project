@@ -49,11 +49,16 @@ label {
   flex-direction: column;
 }
 
+.dependant {
+  margin-bottom: 1dvh;
+}
+
 .action-button {
   position: relative;
   color: white;
   margin: 2dvh;
-  background-color: var(--confirm-color);
+  background-color: blue;
+  /* background-color: var(--background-color); */
   padding: 1.5dvh 4.5dvh;
   border: 0;
   border-radius: 15px;
