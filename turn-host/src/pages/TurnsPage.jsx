@@ -8,7 +8,6 @@ import { createTicket, deleteTicket } from "../requests/ticket/TicketRequest";
 export const TurnsPage = () => {
   const { authData, dependantList, turnList, loading } = useAuth();
 
-    console.log(authData.token)
   const addTicketFunction = async (ticket) => {
     try {
       createTicket({
@@ -23,18 +22,17 @@ export const TurnsPage = () => {
     }
   };
 
-  const deleteTicketFunction = async (ticket) => {
+   const deleteTicketFunction = async (ticketId) => {
     try {
       deleteTicket({
         token: authData.token,
-        turn: ticket.id
+        turn: ticketId
       });
-      console.log('Ticket deleted:', ticket.id);
+      console.log('Ticket deleted:', ticketId);
     } catch (error) {
       console.error('Error deleting ticket:', error);
     }
   };
-
   if (loading) {
     return <div>Loading...</div>;
   }

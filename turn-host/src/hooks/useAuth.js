@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
           token: token,
           userId: userId,
         });
-        const listOfDependants = await getAvailableDependantList();
+        const listOfDependants = getAvailableDependantList();
         setDependantList(listOfDependants);
         const listOfTurns = await getUserTurns({ token, userId });
         setTurnList(listOfTurns);
