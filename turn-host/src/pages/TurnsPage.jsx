@@ -8,21 +8,31 @@ import { createTicket, deleteTicket } from "../requests/ticket/TicketRequest";
 export const TurnsPage = () => {
   const { authData, dependantList, turnList, loading } = useAuth();
 
-  const addTicketFunction = async (dependant) => {
     console.log(authData.token)
-    createTicket({
-      token: authData.token,
-      userId: authData.userId,
-      //TODO Fix the shitty dependant thing
-      dependant
-    });
+  const addTicketFunction = async (ticket) => {
+    try {
+      createTicket({
+        token: authData.token,
+        userId: authData.userId,
+        dependentId: ticket.dependentId,
+        scheduledDate: ticket.scheduledDate
+      });
+      console.log('Ticket created:', ticket);
+    } catch (error) {
+      console.error('Error creating ticket:', error);
+    }
   };
 
   const deleteTicketFunction = async (ticket) => {
-    deleteTicket({
-      token: authData.token,
-      turn: ticket
-    });
+    try {
+      deleteTicket({
+        token: authData.token,
+        turn: ticket.id
+      });
+      console.log('Ticket deleted:', ticket.id);
+    } catch (error) {
+      console.error('Error deleting ticket:', error);
+    }
   };
 
   if (loading) {
@@ -30,15 +40,15 @@ export const TurnsPage = () => {
   }
 
   return (
-      <>
-        <NavbarComp logoutFunc={logout} />
-        <UserScreen
-          createTicket={addTicketFunction}
-          addFunction={addTicketFunction}
-          deleteFunction={deleteTicketFunction}
-          dependantList={dependantList}
-          ticketList={turnList}
-        />
-      </>
+    <>
+      <NavbarComp logoutFunc={logout} />
+      <UserScreen
+        createTicket={addTicketFunction}
+        addFunction={addTicketFunction}
+        deleteFunction={deleteTicketFunction}
+        dependantList={dependantList}
+        ticketList={turnList}
+      />
+    </>
   );
 };

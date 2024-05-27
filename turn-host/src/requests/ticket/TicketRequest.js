@@ -7,8 +7,6 @@ export const createTicket = ({token, userId, dependentId=""}) => {
     "userId": userId,
     "dependentId": dependentId 
   });
-  console.log("UID", userId)
-  console.log("DepID", dependentId)
 
   const requestOptions = {
     method: "POST",
