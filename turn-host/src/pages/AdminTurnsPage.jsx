@@ -17,6 +17,7 @@ export const AdminTurnsPage = () => {
 
   return (
     <>
+      <h1>Admin</h1>
       <NavbarComp logoutFunc={logout} />
       <AdminScreen/>
     </>

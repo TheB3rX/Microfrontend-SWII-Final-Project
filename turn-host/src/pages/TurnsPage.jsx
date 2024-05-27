@@ -6,9 +6,11 @@ import { logout } from "../auth/keycloak";
 import { createTicket, deleteTicket } from "../requests/ticket/TicketRequest";
 
 export const TurnsPage = () => {
-  const { authData, dependantList, turnList, loading } = useAuth();
+  const { authData, dependantList, turnList, userType, loading } = useAuth();
 
   console.log(authData.token)
+  console.log(authData.userId)
+  console.log(userType)
   const addTicketFunction = async (ticket) => {
     try {
       createTicket({
@@ -23,7 +25,7 @@ export const TurnsPage = () => {
     }
   };
 
-   const deleteTicketFunction = async (ticketId) => {
+  const deleteTicketFunction = async (ticketId) => {
     try {
       deleteTicket({
         token: authData.token,
@@ -34,12 +36,14 @@ export const TurnsPage = () => {
       console.error('Error deleting ticket:', error);
     }
   };
+
   if (loading) {
     return <div>Loading...</div>;
   }
 
   return (
     <>
+      <h1>USER</h1>
       <NavbarComp logoutFunc={logout} />
       <UserScreen
         createTicket={addTicketFunction}
@@ -47,6 +51,7 @@ export const TurnsPage = () => {
         deleteFunction={deleteTicketFunction}
         dependantList={dependantList}
         ticketList={turnList}
+        userType={userType}
       />
     </>
   );

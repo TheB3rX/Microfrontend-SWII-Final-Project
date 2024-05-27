@@ -10,22 +10,27 @@ import { DeletePage } from "./pages/DeletePage";
 import { IdentitySignupPage } from "./pages/IdentitySignupPage";
 import { IdentityProtectedRoute } from "./routes/IdentityProtectedRoute";
 import { AuthProvider } from "./hooks/useAuth";
+import { AdminProtectedRoute } from "./routes/AdminProtectedRoute";
+import { UserProtectedRoute } from "./routes/UserProtectedRoute";
 
 const App = () => (
   <AuthProvider>
     <Routes>
       <Route element={<ProtectedRoute />}>
-        <Route element={<TurnsPage />} path="/" exact />
-        <Route path="/turns" element={<TurnsPage />} />
-        <Route path="/adminTurns" element={<AdminTurnsPage />} />
-        <Route path="/create" element={<CreatePage />} />
-        <Route path="/delete" element={<DeletePage />} />
+        <Route element={<UserProtectedRoute />}>
+          <Route path="/turns" element={<TurnsPage />} />
+          <Route path="/create" element={<CreatePage />} />
+          <Route path="/delete" element={<DeletePage />} />
+        </Route>
+        <Route element={<AdminProtectedRoute />}>
+          <Route path="/adminTurns" element={<AdminTurnsPage />} />
+        </Route>
       </Route>
-      {/* For when someone has identity signed up and hasn't completed information */}
       <Route element={<IdentityProtectedRoute />}>
         <Route element={<IdentitySignupPage />} path="/complete-information" exact />
       </Route>
       <Route element={<SignupPage />} path="/signup" exact />
+      <Route path="/" element={<TurnsPage />} />
     </Routes>
   </AuthProvider>
 );
