@@ -5,19 +5,15 @@ import Select from 'react-select';
 export const DeleteTicket = ({ onClose, ticketList}) => {
   const [ticket, setTicket] = useState('');
 
-  const onInputChange = e => {
-      console.log(`Changing: ${e.target}`)
-      const { name, value } = e.target;
-      setTicketInput(prev => ({
-      ...prev,
-      [name]: value
-      }));
-  };
-
   const selectList = ticketList.map(element => ({
     value: element.id,
     label: element.scheduledDate
   }));
+
+  const handleDelete = () => {
+    console.log("Sent delete, ticket is: ", ticket)
+    onClose;
+  }
 
   return (
     <>
@@ -35,7 +31,7 @@ export const DeleteTicket = ({ onClose, ticketList}) => {
           className='action-button' 
           type='button' 
           value='Confirm'
-          onClick={onClose}
+          onClick={handleDelete}
         >
           Delete 
         </button>
