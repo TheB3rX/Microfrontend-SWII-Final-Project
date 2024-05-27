@@ -19,3 +19,20 @@ export const getClientAuthorization = async () => {
     .catch((error) => console.error(error));
   return clientAuthToken;
 }
+
+export const getOrganizationClients = async ({ token, userId }) => {
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("Authorization", `Bearer ${token}`);
+
+  const requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+    redirect: "follow"
+  };
+
+  const organizationClients= await fetch(`http://localhost:9000/user/getOrganizationClients/${userId}`, requestOptions)
+    .then((response) => response.json())
+    .catch((error) => console.error(error));
+  return organizationClients;
+}

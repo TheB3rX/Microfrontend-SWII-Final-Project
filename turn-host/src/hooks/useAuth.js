@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { getToken, isAuthenticated, keycloakUserId, login } from "../auth/keycloak";
-import { getAvailableDependantList, getOrganizationClients } from "../requests/general/Dependant";
+import { getAvailableDependantList } from "../requests/general/Dependant";
 import { getUserTurns, getUserType } from "../requests/user/UserRequests";
+import { getOrganizationClients } from "../requests/client/ClientRequest";
 
 const AuthContext = createContext();
 
@@ -30,10 +31,10 @@ export const AuthProvider = ({ children }) => {
             userId: userId,
           });
 
-          const listOfDependants = getAvailableDependantList({ token, userId});
+          const listOfDependants = await getAvailableDependantList({ token, userId});
           setDependantList(listOfDependants);
 
-          const lisfOfClients = getOrganizationClients({ token, userId });
+          const lisfOfClients = await getOrganizationClients({ token, userId });
           setClientList(lisfOfClients);
 
           const listOfTurns = await getUserTurns({ token, userId });
@@ -58,6 +59,7 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider value={{ 
       authData, 
       dependantList, 
+      clientList,
       turnList, 
       userType, 
       loading 
