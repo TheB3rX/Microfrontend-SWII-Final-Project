@@ -22,6 +22,7 @@ const App = () => {
 
   return (
     <div className="container">
+      <UserScreen/>
       <AdminScreen dependantList={dependantList} ticketList={ticketList} />
     </div>
   );

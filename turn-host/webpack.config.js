@@ -26,6 +26,10 @@ module.exports = (_, argv) => ({
         },
       },
       {
+        test: /.(png|jpe?g|gif|svg)$/i,
+        type: "asset/resource",
+      },
+      {
         test: /\.(css|s[ac]ss)$/i,
         use: ["style-loader", "css-loader", "postcss-loader"],
       },
