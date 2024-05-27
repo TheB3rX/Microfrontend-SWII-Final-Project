@@ -1,11 +1,12 @@
-export const createTicket = ({token, userId, dependentId=""}) => {
+export const createTicket = ({token, userId, dependentId="", scheduledDate=""}) => {
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("Authorization", `Bearer ${token}`);
 
   const raw = JSON.stringify({
     "userId": userId,
-    "dependentId": dependentId 
+    "dependentId": dependentId,
+    "scheduledDate": scheduledDate
   });
 
   const requestOptions = {

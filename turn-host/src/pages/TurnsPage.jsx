@@ -8,6 +8,7 @@ import { createTicket, deleteTicket } from "../requests/ticket/TicketRequest";
 export const TurnsPage = () => {
   const { authData, dependantList, turnList, loading } = useAuth();
 
+  console.log(authData.token)
   const addTicketFunction = async (ticket) => {
     try {
       createTicket({
