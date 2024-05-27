@@ -132,3 +132,4 @@ login-mf/env
 .idx/dev.nix
 .gitignore
 .vscode/settings.json
+.idea

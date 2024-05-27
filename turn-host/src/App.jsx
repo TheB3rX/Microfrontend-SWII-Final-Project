@@ -8,9 +8,11 @@ import { AdminTurnsPage } from "./pages/AdminTurnsPage";
 import { CreatePage } from "./pages/CreatePage";
 import { DeletePage } from "./pages/DeletePage";
 import { IdentitySignupPage } from "./pages/IdentitySignupPage";
+import { AuthProvider } from "./hooks/useAuth";
 
 
 const App = () => (
+  <AuthProvider>
   <Routes>
     <Route element={<ProtectedRoute/>}>
       <Route element={<TurnsPage/>} path="/" exact/>
@@ -23,6 +25,7 @@ const App = () => (
       <Route element={<IdentitySignupPage/>} path="/complete-information" exact />
     <Route element={<SignupPage/>} path="/signup" exact />
   </Routes>
+  </AuthProvider>
 );
 
 ReactDOM.createRoot(document.getElementById("app")).render(

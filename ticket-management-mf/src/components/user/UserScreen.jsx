@@ -6,7 +6,7 @@ import { ButtonGroup } from '../shared/edition/ButtonGroup';
 import { CreateTicket } from '../shared/ticketCRUD/creation/CreateTicket';
 import { DeleteTicket } from '../shared/ticketCRUD/delete/DeleteTicket';
 
-export const UserScreen = ({ dependantList = [], ticketList = [] }) => {
+export const UserScreen = ({createTicket, dependantList = [], ticketList = [] }) => {
   const [isChildVisible, setIsChildVisible] = useState([false, false]);
   const [tickets, setTickets] = useState([]);
   const [allChecked, setAllChecked] = useState(false);
@@ -18,8 +18,6 @@ export const UserScreen = ({ dependantList = [], ticketList = [] }) => {
       return newState;
     });
   };
-
-  console.log(ticketList)
 
   const handleAddTicket = () => {
     setTickets([...tickets, {
@@ -50,7 +48,7 @@ export const UserScreen = ({ dependantList = [], ticketList = [] }) => {
         </div>
         <div className="container-checkbox">
           {isChildVisible[0] && (
-            <CreateTicket onClose={() => handleToggle(0)} dependantList={dependantList} />
+            <CreateTicket createTicket={createTicket} onClose={() => handleToggle(0)} dependantList={dependantList} />
           )}
           {isChildVisible[1] && (
             <DeleteTicket onClose={() => handleToggle(1)} ticketList={ticketList} />

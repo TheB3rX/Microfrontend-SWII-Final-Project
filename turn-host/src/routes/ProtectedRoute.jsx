@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { userExistsInDB } from '../requests/identity_provider/CheckIdentityProvider';
-import { createUser } from '../requests/user/UserRequests';
-import { getClientAuthorization } from '../requests/client/ClientRequest';
 
 export const ProtectedRoute = () => {
   const { authData, loading } = useAuth();
@@ -14,7 +12,6 @@ export const ProtectedRoute = () => {
       if (authData.auth) {
         const result = await userExistsInDB({ token: authData.token, userId: authData.userId });
         setOnlyIdentityProvider(result);
-        console.log(getClientAuthorization())
       }
     };
 
