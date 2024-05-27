@@ -4,7 +4,7 @@ import './ButtonGroup.css'
 export const ButtonGroup = ({onToggleAdd, onToggleDelete, handleAddTicket}) => {
   return (
     <div className="buttons">
-        <button>
+        <button onClick={handleAddTicket}>
             <img src="https://s3-alpha-sig.figma.com/img/1cf4/2516/e94cbba6c651479c7395ff40a8dcc485?Expires=1716768000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OnP0XJCCAv~qIoGi-23Ma1HFn5M7EqI~PfMP1~a7bLMZ~A3yyjOWvsdsXw8wGaxm6FP8HU8q0gJJVWpYBt~tGnINxoqsuSEhvy4tYc1M~A8O3Gumskg6d4xHHS-NyDm80VNVekvPap6XLpSgz7TtXWwhmdyvzrRWeHWZhV7d48-X5x9pObA5t0ey82VePz6SWzlRqBRVCzH7TscO3FKLuwSpidt4bmEaA~1UAlpSNrtcDbnJoY~B97SwmwSSnQsvYvZgk1zHXdSNd8hwOXZUub3pg3qCdLZa9GcS1ccdFfa2JhSsUPL1Q56y6ehg2Mi8fjQWGqWErN9pKH2LQblX8w__" alt="buscar" width={50} />
         </button>
         <button onClick={onToggleDelete}>

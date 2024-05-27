@@ -53,8 +53,8 @@ export const UserScreen = ({createTicket, dependantList = [], ticketList = [] })
           {isChildVisible[1] && (
             <DeleteTicket onClose={() => handleToggle(1)} ticketList={ticketList} />
           )}
-          {tickets.map((ticket) => (
-            <Ticket key={ticket.id} checked={ticket.checked} />
+          {ticketList.map((ticket) => (
+            <Ticket key={ticket.id} id={ticket.id} date={ticket.scheduledDate} checked={ticket.checked} />
           ))}
         </div>
       </div>

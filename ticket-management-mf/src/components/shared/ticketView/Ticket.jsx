@@ -1,14 +1,14 @@
 import React from "react";
 import './Ticket.css'
 
-const Ticket = ({ checked }) => (
+const Ticket = ({ id, date, checked }) => (
   <div className="checkbox_conter">
     <input type="checkbox" id="miCheckbox1" checked={checked} />
     <div className="user-info">
-      <p>Ticket# 36-SK</p>
+      <p>{id}</p>
     </div>
     <div className="entity-info">
-      <p>Your EPS - 09:00 AM</p>
+      <p>{date}</p>
     </div>
   </div>
 );
