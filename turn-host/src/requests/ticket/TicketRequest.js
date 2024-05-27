@@ -1,14 +1,14 @@
-import { keycloakUserId, getToken } from "../../auth/keycloak";
-
-export const createTicket = ({token, dependentId}) => {
+export const createTicket = ({token, userId, dependentId=""}) => {
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("Authorization", `Bearer ${token}`);
 
   const raw = JSON.stringify({
-    "userId": keycloakUserId,
+    "userId": userId,
     "dependentId": dependentId 
   });
+  console.log("UID", userId)
+  console.log("DepID", dependentId)
 
   const requestOptions = {
     method: "POST",
@@ -17,7 +17,7 @@ export const createTicket = ({token, dependentId}) => {
     redirect: "follow"
   };
 
-  fetch("http://localhost:9001/turn/create", requestOptions)
+  fetch("http://localhost:9001/turns/create", requestOptions)
     .then((response) => response.text())
     .then((result) => console.log(result))
     .catch((error) => console.error(error));

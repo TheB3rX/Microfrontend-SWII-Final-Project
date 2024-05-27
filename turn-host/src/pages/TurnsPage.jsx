@@ -9,8 +9,10 @@ export const TurnsPage = () => {
   const { authData, dependantList, turnList, loading } = useAuth();
 
   const addTicketFunction = async (dependant) => {
+    console.log(authData.token)
     createTicket({
       token: authData.token,
+      userId: authData.userId,
       dependant
     });
   };
@@ -22,8 +24,6 @@ export const TurnsPage = () => {
     });
   };
 
-  console.log(authData.token)
-
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -32,7 +32,7 @@ export const TurnsPage = () => {
       <>
         <NavbarComp logoutFunc={logout} />
         <UserScreen
-          createTicket={createTicket}
+          createTicket={addTicketFunction}
           addFunction={addTicketFunction}
           deleteFunction={deleteTicketFunction}
           dependantList={dependantList}
