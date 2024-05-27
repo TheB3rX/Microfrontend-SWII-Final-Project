@@ -16,6 +16,7 @@ export const ProtectedRoute = () => {
         const result = await userExistsInDB({ token: authData.token, userId: authData.userId });
         setOnlyIdentityProvider(result);
         console.log(authData.token)
+        console.log(authData.userId)
       }
     };
 

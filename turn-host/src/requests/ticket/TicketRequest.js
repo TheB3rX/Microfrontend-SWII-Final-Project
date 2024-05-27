@@ -30,11 +30,6 @@ export const deleteTicket = ({turn}) => {
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append(`Authorization", "Bearer ${token}`);
 
-  const raw = JSON.stringify({
-    "userId": keycloakUserId,
-    "dependentId": dependentId 
-  });
-
   const requestOptions = {
     method: "POST",
     headers: myHeaders,

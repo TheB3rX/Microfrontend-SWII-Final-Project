@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getToken, isAuthenticated, keycloakUserId, login } from "../auth/keycloak";
 import { getAvailableDependantList } from "../requests/general/Dependant";
-import { getUserTurns } from "../requests/client/ClientRequest";
+import { getUserTurns } from "../requests/user/UserRequests";
 
 export const useAuth = () => {
   const [authData, setAuthData] = useState({
@@ -27,6 +27,9 @@ export const useAuth = () => {
         const listOfDependants = getAvailableDependantList();
         setDependantList(listOfDependants);
         const listOfTurns = await getUserTurns({token, userId})
+        listOfTurns.forEach(turn => {
+          console.log(turn)
+        })
         setTurnList(listOfTurns);
       } else {
         login();

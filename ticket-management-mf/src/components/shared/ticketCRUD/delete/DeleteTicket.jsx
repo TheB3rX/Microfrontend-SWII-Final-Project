@@ -26,7 +26,6 @@ export const DeleteTicket = ({ onClose, ticketList}) => {
             <label name="ticket-information">Select your ticket to delete</label> 
             <Select
               options={ticketList} 
-              defaultValue={ticketList[0]}
               onChange={option => setTicket(option.value)}
             />
           </div>

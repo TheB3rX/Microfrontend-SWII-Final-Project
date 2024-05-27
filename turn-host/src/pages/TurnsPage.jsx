@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { UserScreen } from "userScreen/UserScreen";
 import { NavbarComp } from "navbar/NavbarComp";
 import { useAuth } from "../hooks/useAuth";
@@ -8,6 +8,12 @@ import { createTicket, deleteTicket } from "../requests/ticket/TicketRequest";
 export const TurnsPage = () => {
   const { authData, dependantList, ticketList, loading } = useAuth();
 
+  useEffect(() => {
+    const ticketList = async () => {
+      console.log(ticketList)
+    }
+    ticketList()
+  }, [])
   const addTicketFunction = (dependant) => {
     createTicket({
       token: authData.token, 
