@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { UserScreen } from "userScreen/UserScreen";
 import { NavbarComp } from "navbar/NavbarComp";
 import { useAuth } from "../hooks/useAuth";
@@ -6,26 +6,21 @@ import { logout } from "../auth/keycloak";
 import { createTicket, deleteTicket } from "../requests/ticket/TicketRequest";
 
 export const TurnsPage = () => {
-  const { authData, dependantList, ticketList, loading } = useAuth();
+  const { authData, dependantList, turnList, loading } = useAuth();
 
-  useEffect(() => {
-    const ticketList = async () => {
-      console.log(ticketList)
-    }
-    ticketList()
-  }, [])
-  const addTicketFunction = (dependant) => {
+  const addTicketFunction = async (dependant) => {
     createTicket({
-      token: authData.token, 
-      userId: authData.userId, 
-      dependentI: dependant
-    })
+      token: authData.token,
+      userId: authData.userId,
+      dependant
+    });
   };
-  const deleteTicketFunction = (ticket) => {
+
+  const deleteTicketFunction = async (ticket) => {
     deleteTicket({
       token: authData.token,
       turn: ticket
-    })
+    });
   };
 
   if (loading) {
@@ -33,14 +28,14 @@ export const TurnsPage = () => {
   }
 
   return (
-    <>
-      <NavbarComp logoutFunc={logout} />
-      <UserScreen 
-        addFunction={addTicketFunction} 
-        deleteFunction={deleteTicketFunction} 
-        dependantList={dependantList} 
-        ticketList={ticketList} 
-      />
-    </>
+      <>
+        <NavbarComp logoutFunc={logout} />
+        <UserScreen
+            addFunction={addTicketFunction}
+            deleteFunction={deleteTicketFunction}
+            dependantList={dependantList}
+            ticketList={turnList}
+        />
+      </>
   );
 };

@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import { getToken, isAuthenticated, keycloakUserId, login } from "../auth/keycloak";
 import { getAvailableDependantList } from "../requests/general/Dependant";
 import { getUserTurns } from "../requests/user/UserRequests";
 
-export const useAuth = () => {
+const AuthContext = createContext();
+
+export const AuthProvider = ({ children }) => {
   const [authData, setAuthData] = useState({
     auth: null,
     token: null,
@@ -24,12 +26,9 @@ export const useAuth = () => {
           token: token,
           userId: userId,
         });
-        const listOfDependants = getAvailableDependantList();
+        const listOfDependants = await getAvailableDependantList();
         setDependantList(listOfDependants);
-        const listOfTurns = await getUserTurns({token, userId})
-        listOfTurns.forEach(turn => {
-          console.log(turn)
-        })
+        const listOfTurns = await getUserTurns({ token, userId });
         setTurnList(listOfTurns);
       } else {
         login();
@@ -40,5 +39,13 @@ export const useAuth = () => {
     checkAuth();
   }, []);
 
-  return { authData, dependantList, turnList, loading };
+  return (
+      <AuthContext.Provider value={{ authData, dependantList, turnList, loading }}>
+        {children}
+      </AuthContext.Provider>
+  );
+};
+
+export const useAuth = () => {
+  return useContext(AuthContext);
 };

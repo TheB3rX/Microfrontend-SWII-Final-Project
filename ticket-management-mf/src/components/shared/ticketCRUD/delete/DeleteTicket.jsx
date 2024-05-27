@@ -13,10 +13,11 @@ export const DeleteTicket = ({ onClose, ticketList}) => {
       [name]: value
       }));
   };
-  
-  useEffect(() => {
-      console.log(ticket)
-  }, [ticket])
+
+  const selectList = ticketList.map(element => ({
+    value: element.id,
+    label: element.scheduledDate
+  }));
 
   return (
     <>
@@ -25,7 +26,7 @@ export const DeleteTicket = ({ onClose, ticketList}) => {
           <div className='field-group'>
             <label name="ticket-information">Select your ticket to delete</label> 
             <Select
-              options={ticketList} 
+              options={selectList} 
               onChange={option => setTicket(option.value)}
             />
           </div>
