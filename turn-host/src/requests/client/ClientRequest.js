@@ -3,9 +3,9 @@ export const getClientAuthorization = async () => {
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
   const urlencoded = new URLSearchParams();
-  urlencoded.append("grant_type", REACT_APP_GRANT_TYPE);
-  urlencoded.append("client_id", REACT_APP_CLIENT_ID);
-  urlencoded.append("client_secret", REACT_APP_CLIENT_SECRET);
+  urlencoded.append("grant_type", process.env.REACT_APP_GRANT_TYPE);
+  urlencoded.append("client_id", process.env.REACT_APP_CLIENT_ID);
+  urlencoded.append("client_secret", process.env.REACT_APP_CLIENT_SECRET);
 
   const requestOptions = {
     method: "POST",

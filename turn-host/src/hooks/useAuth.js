@@ -27,7 +27,6 @@ export const useAuth = () => {
         const listOfDependants = getAvailableDependantList();
         setDependantList(listOfDependants);
         const listOfTurns = await getUserTurns({token, userId})
-        console.log("TURNLIST",listOfTurns)
         setTurnList(listOfTurns);
       } else {
         login();

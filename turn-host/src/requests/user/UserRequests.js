@@ -30,7 +30,7 @@ export const createUser = async ({
     redirect: "follow"
   };
 
-  // fetch("http://localhost:9000/keycloak/user/create", requestOptions)
-  //   .then((response) => {return response.json()})
-    // .catch((error) => console.error(error));
+  fetch("http://localhost:9000/keycloak/user/create", requestOptions)
+    .then((response) => {return response.json()})
+    .catch((error) => console.error(error));
 }
