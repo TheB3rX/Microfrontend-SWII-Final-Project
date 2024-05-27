@@ -47,8 +47,8 @@ export const TurnsPage = () => {
       <NavbarComp logoutFunc={logout} />
       <UserScreen
         createTicket={addTicketFunction}
+        deleteTicket={deleteTicketFunction}
         addFunction={addTicketFunction}
-        deleteFunction={deleteTicketFunction}
         dependantList={dependantList}
         ticketList={turnList}
         userType={userType}

@@ -23,7 +23,9 @@ export const DeleteTicket = ({ deleteTicket, onClose, ticketList = [] }) => {
       setErrors(validationErrors);
       return;
     }
-    deleteTicket(ticket);
+    deleteTicket({
+      id: ticket
+    });
     onClose();
   };
 
