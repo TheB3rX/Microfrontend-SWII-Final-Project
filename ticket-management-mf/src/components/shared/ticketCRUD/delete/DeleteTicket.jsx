@@ -17,7 +17,7 @@ export const DeleteTicket = ({ onClose, ticketList}) => {
   useEffect(() => {
       console.log(ticket)
   }, [ticket])
-
+console.log(ticketList[0],'👀');
   return (
     <>
       <div className='ticket-formulary'>

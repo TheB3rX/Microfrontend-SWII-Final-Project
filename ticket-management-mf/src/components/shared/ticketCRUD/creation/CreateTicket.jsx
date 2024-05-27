@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 import './CreateTicket.css';
 
-export const CreateTicket = ({ onClose, dependantList=[]}) => {
+export const CreateTicket = ({ onClose, dependantList=[], ticketList=[]}) => {
   const [dependant, setDependant] = useState('');
   const [ticket, setTicketInput] = useState({
     userId: '',
@@ -21,6 +21,11 @@ export const CreateTicket = ({ onClose, dependantList=[]}) => {
       ...prev,
       [name]: value
     }));
+  };
+
+  const handleClick = () => {
+    console.log("Este botón se oprimió");
+    onClose();
   };
 
   useEffect(() => {
@@ -53,7 +58,7 @@ export const CreateTicket = ({ onClose, dependantList=[]}) => {
       <button 
         className='action-button' 
         type='button' 
-        onClick={onClose}
+        onClick={handleClick}
       >
         Create
       </button>
