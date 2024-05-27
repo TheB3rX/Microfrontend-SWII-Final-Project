@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
             userId: userId,
           });
 
-          const listOfDependants = getAvailableDependantList();
+          const listOfDependants = await getAvailableDependantList({ token, userId });
           setDependantList(listOfDependants);
 
           const listOfTurns = await getUserTurns({ token, userId });
@@ -51,7 +51,13 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ authData, dependantList, turnList, userType, loading }}>
+    <AuthContext.Provider value={{ 
+      authData, 
+      dependantList, 
+      turnList, 
+      userType, 
+      loading 
+    }}>
       {children}
     </AuthContext.Provider>
   );

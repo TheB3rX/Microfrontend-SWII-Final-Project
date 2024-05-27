@@ -11,6 +11,14 @@ export const CreateTicket = ({ createTicket, onClose, dependantList = [] }) => {
   });
   const [errors, setErrors] = useState({});
 
+  console.log("DEPLIST", dependantList)
+  const selectList = dependantList.map(element => ({
+    value: element.id,
+    label: element.username
+  }));
+
+  console.log("LIST" ,selectList)
+
   const validate = () => {
     const newErrors = {};
     if (!ticketDate) newErrors.date = 'Date is required';
@@ -58,8 +66,7 @@ export const CreateTicket = ({ createTicket, onClose, dependantList = [] }) => {
 
           <label className="dependant">Seleccione un dependiente</label>
           <Select
-            options={dependantList}
-            defaultValue={dependantList[0]}
+            options={selectList}
             onChange={option => setDependant(option.value)}
             className={errors.dependant ? 'input-error' : ''}
           />

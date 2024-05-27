@@ -52,15 +52,13 @@ export const getUserTurns = async ({token, userId}) => {
   return userTurns;
 }
 
-export const cancelUserTurn = async ({token, userId, dependentId, scheduledDate}) => {
+export const cancelUserTurn = async ({token, turnId}) => {
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("Authorization", `Bearer ${token}`);
 
   const raw = {
-    "id": userId,
-    "dependentId": dependentId,
-    "scheduledDate": scheduledDate
+    "id": turnId 
   }
   const requestOptions = {
     method: "POST",
@@ -70,7 +68,7 @@ export const cancelUserTurn = async ({token, userId, dependentId, scheduledDate}
   }
 
   const cancellation = fetch("http://localhost:9001/turns/update", requestOptions)
-    .then((response) => response.text)
+    .then((response) => response.json())
     .catch((error) => console.log(error));
 
   return cancellation;
