@@ -20,14 +20,12 @@ export const userExistsInDB = async ({token, userId}) => {
   return isOnDB;
 }
 
-export const addDataToUser = async ({token, userId, username, email, firstName, lastName, organization}) => {
+export const addDataToUser = async ({token, email, userId, username, firstName, lastName, organization}) => {
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("Authorization", `Bearer ${token}`);
 
-  console.log("USER",
-    username, email, firstName, lastName, organization
-  )
+  console.log(email)
   const raw = JSON.stringify({
     "id": userId,
     "username": username,

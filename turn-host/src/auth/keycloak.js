@@ -25,7 +25,11 @@ export const login = () => keycloak.login();
 export const logout = () => keycloak.logout();
 export const getToken = () => keycloak.token;
 export const getUserEmail = async () => {
-  const userInfo = await keycloak.loadUserInfo()
-    .catch((error) => {console.log("An error", error)});
-  return userInfo.email
+  try {
+    const userInfo = await keycloak.loadUserInfo();
+    return userInfo.email;
+  } catch (error) {
+    console.log("An error occurred while loading user info:", error);
+    return null;
+  }
 }

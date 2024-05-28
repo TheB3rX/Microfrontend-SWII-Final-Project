@@ -110,6 +110,9 @@ export const getUserType = async ({ token, userId }) => {
     if (adminTurnsResponse.status === 200) {
       return 0; //admin
     }
+    console.log(
+      adminTurnsResponse
+    )
 
     const userTurnsResponse = await fetch(`http://localhost:9001/turns/getUserTurns/${userId}`, requestOptions);
 

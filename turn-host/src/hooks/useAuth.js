@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { getToken, isAuthenticated, keycloakUserId, login } from "../auth/keycloak";
+import { getToken, getUserEmail, isAuthenticated, keycloakUserId, login } from "../auth/keycloak";
 import { getAvailableDependantList } from "../requests/general/Dependant";
 import { getAdminTurns, getUserTurns, getUserType } from "../requests/user/UserRequests";
 import { getOrganizationClients } from "../requests/client/ClientRequest";
@@ -11,6 +11,7 @@ export const AuthProvider = ({ children }) => {
     auth: null,
     token: null,
     userId: null,
+    email: null
   });
   const [dependantList, setDependantList] = useState([]);
   const [clientList, setClientList] = useState([]);
@@ -18,9 +19,6 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [userType, setUserType] = useState(null);
 
-
-  console.log("token", authData.token);
-  console.log("userid", authData.userId);
   useEffect(() => {
     const checkAuth = async () => {
       try {
@@ -29,21 +27,27 @@ export const AuthProvider = ({ children }) => {
         if (authenticated) {
           const token = getToken();
           const userId = keycloakUserId();
+          const email = await getUserEmail();
 
           setAuthData({
             auth: authenticated,
             token: token,
             userId: userId,
+            email: email
           });
 
           const typeOfUser = await getUserType({ token, userId });
           setUserType(typeOfUser);
 
+          console.log(
+            "UTYPE", typeOfUser
+          )
           if (typeOfUser === 0) {
             const listOfTurns = await getAdminTurns({ token, userId });
             setTurnList(listOfTurns);
           } else if (typeOfUser === 1) {
             const listOfTurns = await getUserTurns({ token, userId });
+            console.log(listOfTurns)
             setTurnList(listOfTurns);
           }
 

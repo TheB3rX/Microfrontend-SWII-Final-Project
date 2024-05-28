@@ -22,6 +22,7 @@ export const IdentitySignupPage = () => {
     if (authData.auth) {
       const dataForm = {
         token: authData.token,
+        email: authData.email,
         userId: authData.userId,
         ...data,
       };
