@@ -18,7 +18,6 @@ const App = () => (
     <Routes>
       <Route element={<ProtectedRoute />}>
         <Route element={<UserProtectedRoute />}>
-          <Route path="/" element={<TurnsPage />} />
           <Route path="/turns" element={<TurnsPage />} />
           <Route path="/create" element={<CreatePage />} />
           <Route path="/delete" element={<DeletePage />} />
@@ -31,6 +30,7 @@ const App = () => (
         <Route path="/complete-information" element={<IdentitySignupPage />} exact />
       </Route>
       <Route path="/signup" element={<SignupPage />} exact />
+      <Route path="/" element={<TurnsPage/>}/>
     </Routes>
   </AuthProvider>
 );

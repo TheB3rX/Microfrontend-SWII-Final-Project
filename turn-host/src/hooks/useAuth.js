@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { getToken, isAuthenticated, keycloakUserId, login } from "../auth/keycloak";
 import { getAvailableDependantList } from "../requests/general/Dependant";
-import { getUserTurns, getUserType } from "../requests/user/UserRequests";
+import { getAdminTurns, getUserTurns, getUserType } from "../requests/user/UserRequests";
 import { getOrganizationClients } from "../requests/client/ClientRequest";
 
 const AuthContext = createContext();
@@ -25,26 +25,34 @@ export const AuthProvider = ({ children }) => {
     const checkAuth = async () => {
       try {
         const authenticated = await isAuthenticated();
+
         if (authenticated) {
           const token = getToken();
           const userId = keycloakUserId();
+
           setAuthData({
             auth: authenticated,
             token: token,
             userId: userId,
           });
 
-          const listOfDependants = await getAvailableDependantList({ token, userId});
-          setDependantList(listOfDependants);
-
-          const lisfOfClients = await getOrganizationClients({ token, userId });
-          setClientList(lisfOfClients);
-
-          const listOfTurns = await getUserTurns({ token, userId });
-          setTurnList(listOfTurns);
-
           const typeOfUser = await getUserType({ token, userId });
           setUserType(typeOfUser);
+
+          if (typeOfUser === 0) {
+            const listOfTurns = await getAdminTurns({ token, userId });
+            setTurnList(listOfTurns);
+          } else if (typeOfUser === 1) {
+            const listOfTurns = await getUserTurns({ token, userId });
+            setTurnList(listOfTurns);
+          }
+
+          const listOfDependants = await getAvailableDependantList({ token, userId });
+          setDependantList(listOfDependants);
+
+          const listOfClients = await getOrganizationClients({ token, userId });
+          setClientList(listOfClients);
+
         } else {
           login();
         }

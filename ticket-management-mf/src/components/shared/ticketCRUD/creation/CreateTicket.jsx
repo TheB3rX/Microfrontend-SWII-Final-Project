@@ -11,13 +11,10 @@ export const CreateTicket = ({ createTicket, onClose, dependantList = [] }) => {
   });
   const [errors, setErrors] = useState({});
 
-  console.log("DEPLIST", dependantList)
   const selectList = dependantList.map(element => ({
     value: element.id,
-    label: element.username
+    label: element.id
   }));
-
-  console.log("LIST" ,selectList)
 
   const validate = () => {
     const newErrors = {};

@@ -80,7 +80,6 @@ export const Signup = ({createNewUser}) => {
 
     try {
       const token = await serviceAccountLogin();
-      console.log(token);
       createNewUser({
         email,
         username,

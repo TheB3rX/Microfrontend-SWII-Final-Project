@@ -52,6 +52,24 @@ export const getUserTurns = async ({token, userId}) => {
   return userTurns;
 }
 
+export const getAdminTurns = async ({token, userId}) => {
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("Authorization", `Bearer ${token}`);
+
+  const requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+    redirect: "follow"
+  };
+
+  const userTurns = fetch(`http://localhost:9001/turns/getAdminTurns/${userId}`, requestOptions)
+    .then((response) => response.json())
+    .catch((error) => console.log(error))
+  return userTurns;
+}
+
+
 export const cancelUserTurn = async ({token, turnId}) => {
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
@@ -75,7 +93,7 @@ export const cancelUserTurn = async ({token, turnId}) => {
 }
 
 
-export const getUserType = async ({token, userId}) => {
+export const getUserType = async ({ token, userId }) => {
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("Authorization", `Bearer ${token}`);
@@ -87,19 +105,21 @@ export const getUserType = async ({token, userId}) => {
   };
 
   try {
-    const userTurnsResponse = await fetch(`http://localhost:9001/turns/getUserTurns/${userId}`, requestOptions);
     const adminTurnsResponse = await fetch(`http://localhost:9001/turns/getAdminTurns/${userId}`, requestOptions);
 
     if (adminTurnsResponse.status === 200) {
-      return 0; // Admin
-    } else if (userTurnsResponse.status === 200) {
-      return 1; // User
-    } else {
-      throw new Error('Could not determine user type');
+      return 0; //admin
     }
+
+    const userTurnsResponse = await fetch(`http://localhost:9001/turns/getUserTurns/${userId}`, requestOptions);
+
+    if (userTurnsResponse.status === 200) {
+      return 1; //user
+    }
+
+    throw new Error('Could not determine user type');
   } catch (error) {
     console.error('Error fetching user type:', error);
-    return null; // Indicate failure
+    return null; 
   }
-}
-
+};
