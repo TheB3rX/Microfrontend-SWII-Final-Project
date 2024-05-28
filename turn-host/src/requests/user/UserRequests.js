@@ -52,6 +52,24 @@ export const getUserTurns = async ({token, userId}) => {
   return userTurns;
 }
 
+export const getAdminTurns = async ({token, userId}) => {
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("Authorization", `Bearer ${token}`);
+
+  const requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+    redirect: "follow"
+  };
+
+  const userTurns = fetch(`http://localhost:9001/turns/getAdminTurns/${userId}`, requestOptions)
+    .then((response) => response.json())
+    .catch((error) => console.log(error))
+  return userTurns;
+}
+
+
 export const cancelUserTurn = async ({token, turnId}) => {
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
@@ -75,7 +93,7 @@ export const cancelUserTurn = async ({token, turnId}) => {
 }
 
 
-export const getUserType = async ({token, userId}) => {
+export const getUserType = async ({ token, userId }) => {
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("Authorization", `Bearer ${token}`);
@@ -87,19 +105,31 @@ export const getUserType = async ({token, userId}) => {
   };
 
   try {
-    const userTurnsResponse = await fetch(`http://localhost:9001/turns/getUserTurns/${userId}`, requestOptions);
+    // Log the request details
+    console.log(`Requesting admin turns for user ${userId}`);
     const adminTurnsResponse = await fetch(`http://localhost:9001/turns/getAdminTurns/${userId}`, requestOptions);
+    
+    // Log response status and headers
+    console.log(`Admin turns response status: ${adminTurnsResponse.status}`);
+    console.log(`Admin turns response headers:`, adminTurnsResponse.headers);
 
     if (adminTurnsResponse.status === 200) {
-      return 0; // Admin
-    } else if (userTurnsResponse.status === 200) {
-      return 1; // User
-    } else {
-      throw new Error('Could not determine user type');
+      return 'admin'; // Admin
     }
+
+    console.log(`Requesting user turns for user ${userId}`);
+    const userTurnsResponse = await fetch(`http://localhost:9001/turns/getUserTurns/${userId}`, requestOptions);
+    
+    console.log(`User turns response status: ${userTurnsResponse.status}`);
+    console.log(`User turns response headers:`, userTurnsResponse.headers);
+
+    if (userTurnsResponse.status === 200) {
+      return 'user'; // User
+    }
+
+    throw new Error('Could not determine user type');
   } catch (error) {
     console.error('Error fetching user type:', error);
     return null; // Indicate failure
   }
-}
-
+};
