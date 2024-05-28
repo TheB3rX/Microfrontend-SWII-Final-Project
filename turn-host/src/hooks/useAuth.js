@@ -34,27 +34,20 @@ export const AuthProvider = ({ children }) => {
           });
 
           const typeOfUser = await getUserType({ token, userId });
-          console.log("Determined User Type:", typeOfUser);
           setUserType(typeOfUser);
 
           if (typeOfUser === 0) {
-            console.log('Fetching admin turns');
             const listOfTurns = await getAdminTurns({ token, userId });
-            console.log('Admin turns:', listOfTurns);
             setTurnList(listOfTurns);
           } else if (typeOfUser === 1) {
-            console.log('Fetching user turns');
             const listOfTurns = await getUserTurns({ token, userId });
-            console.log('User turns:', listOfTurns);
             setTurnList(listOfTurns);
           }
 
           const listOfDependants = await getAvailableDependantList({ token, userId });
-          console.log('Dependants:', listOfDependants);
           setDependantList(listOfDependants);
 
           const listOfClients = await getOrganizationClients({ token, userId });
-          console.log('Clients:', listOfClients);
           setClientList(listOfClients);
 
         } else {

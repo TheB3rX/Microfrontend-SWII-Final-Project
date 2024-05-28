@@ -105,21 +105,13 @@ export const getUserType = async ({ token, userId }) => {
   };
 
   try {
-    console.log(`Requesting admin turns for user ${userId}`);
     const adminTurnsResponse = await fetch(`http://localhost:9001/turns/getAdminTurns/${userId}`, requestOptions);
-    
-    console.log(`Admin turns response status: ${adminTurnsResponse.status}`);
-    console.log(`Admin turns response headers:`, adminTurnsResponse.headers);
 
     if (adminTurnsResponse.status === 200) {
       return 0; //admin
     }
 
-    console.log(`Requesting user turns for user ${userId}`);
     const userTurnsResponse = await fetch(`http://localhost:9001/turns/getUserTurns/${userId}`, requestOptions);
-    
-    console.log(`User turns response status: ${userTurnsResponse.status}`);
-    console.log(`User turns response headers:`, userTurnsResponse.headers);
 
     if (userTurnsResponse.status === 200) {
       return 1; //user
