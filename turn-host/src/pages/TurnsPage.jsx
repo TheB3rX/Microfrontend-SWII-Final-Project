@@ -8,9 +8,6 @@ import { createTicket, deleteTicket } from "../requests/ticket/TicketRequest";
 export const TurnsPage = () => {
   const { authData, dependantList, turnList, userType, loading } = useAuth();
 
-  console.log(authData.token)
-  console.log(authData.userId)
-  console.log(userType)
   const addTicketFunction = async (ticket) => {
     try {
       createTicket({
@@ -32,7 +29,7 @@ export const TurnsPage = () => {
         turn: ticketId
       });
       console.log('Ticket deleted:', ticketId);
-    } catch (error) {
+    } catch (error) {      
       console.error('Error deleting ticket:', error);
     }
   };
@@ -47,8 +44,7 @@ export const TurnsPage = () => {
       <NavbarComp logoutFunc={logout} />
       <UserScreen
         createTicket={addTicketFunction}
-        addFunction={addTicketFunction}
-        deleteFunction={deleteTicketFunction}
+        deleteTicket={deleteTicketFunction}
         dependantList={dependantList}
         ticketList={turnList}
         userType={userType}

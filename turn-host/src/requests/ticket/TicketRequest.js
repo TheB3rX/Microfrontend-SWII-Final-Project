@@ -22,22 +22,23 @@ export const createTicket = ({token, userId, dependentId="", scheduledDate=""}) 
     .catch((error) => console.error(error));
 }
 
-export const deleteTicket = ({turn}) => {
-  const token = getToken;
+export const deleteTicket = ({ token, turn }) => {
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
-  myHeaders.append(`Authorization", "Bearer ${token}`);
+  myHeaders.append("Authorization", `Bearer ${token}`);
 
+  const raw = JSON.stringify({
+    "id": turn
+  })
   const requestOptions = {
     method: "POST",
     headers: myHeaders,
-    body: JSON.stringify(turn),
+    body: raw,
     redirect: "follow"
   };
 
-  fetch("http://localhost:9001/turn/update", requestOptions)
-    .then((response) => response.text())
-    .then((result) => console.log(result))
+  fetch("http://localhost:9001/turn/delete", requestOptions)
+    .then((response) => response.json())
     .catch((error) => console.error(error));
 
 }

@@ -1,9 +1,9 @@
 export const getAvailableDependantList = async ({ token, userId}) => {
-  const ist = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
-  ];
+  // const ist = [
+  //   { value: 'chocolate', label: 'Chocolate' },
+  //   { value: 'strawberry', label: 'Strawberry' },
+  //   { value: 'vanilla', label: 'Vanilla' }
+  // ];
 
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
