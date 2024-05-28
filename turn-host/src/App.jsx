@@ -1,33 +1,42 @@
-import { ReactKeycloakProvider } from "@react-keycloak/web";
 import React from "react";
-import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import "./index.css";
-import { Homepage } from './components/home/Homepage'
-import { keycloak } from "./Keycloak";
-import LoginPage from './pages/Login';
-import { SecuredPage } from "./components/secured/SecuredPage";
-import { PrivateRoute } from "./helpers/PrivateRoute";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { TurnsPage } from './pages/TurnsPage';
+import { ProtectedRoute } from "./routes/ProtectedRoute";
+import { SignupPage } from "./pages/SignupPage";
+import { AdminTurnsPage } from "./pages/AdminTurnsPage";
+import { CreatePage } from "./pages/CreatePage";
+import { DeletePage } from "./pages/DeletePage";
+import { IdentitySignupPage } from "./pages/IdentitySignupPage";
+import { IdentityProtectedRoute } from "./routes/IdentityProtectedRoute";
+import { AuthProvider } from "./hooks/useAuth";
+import { AdminProtectedRoute } from "./routes/AdminProtectedRoute";
+import { UserProtectedRoute } from "./routes/UserProtectedRoute";
 
-const App = () => {
-  return (
-    <ReactKeycloakProvider authClient={keycloak}>
-      <BrowserRouter> 
-        <Routes>
-          <Route exact path="/login" element={<LoginPage/>} />
-          <Route exact path="/" element={ <Homepage/> }/>
-          <Route exact path="/secured" element={ 
-              <PrivateRoute>
-                <SecuredPage/> 
-              </PrivateRoute>
-            }
-          />
-        </Routes>
-      </BrowserRouter>
-    </ReactKeycloakProvider>
-  )
-}
+const App = () => (
+  <AuthProvider>
+    <Routes>
+      <Route element={<ProtectedRoute />}>
+        <Route element={<UserProtectedRoute />}>
+          <Route path="/turns" element={<TurnsPage />} />
+          <Route path="/create" element={<CreatePage />} />
+          <Route path="/delete" element={<DeletePage />} />
+        </Route>
+        <Route element={<AdminProtectedRoute />}>
+          <Route path="/adminTurns" element={<AdminTurnsPage />} />
+        </Route>
+      </Route>
+      <Route element={<IdentityProtectedRoute />}>
+        <Route path="/complete-information" element={<IdentitySignupPage />} exact />
+      </Route>
+      <Route path="/signup" element={<SignupPage />} exact />
+      <Route path="/" element={<TurnsPage/>}/>
+    </Routes>
+  </AuthProvider>
+);
 
-export default App
-
-ReactDOM.render(<App />, document.getElementById("app"));
+ReactDOM.createRoot(document.getElementById("app")).render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+);

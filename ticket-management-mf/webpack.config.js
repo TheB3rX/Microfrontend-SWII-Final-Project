@@ -1,10 +1,10 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
-const Dotenv = require('dotenv-webpack');
+const Dotenv = require("dotenv-webpack");
 const deps = require("./package.json").dependencies;
 module.exports = (_, argv) => ({
   output: {
-    publicPath: "http://localhost:3002/",
+    publicPath: "http://localhost:3003/",
   },
 
   resolve: {
@@ -12,7 +12,7 @@ module.exports = (_, argv) => ({
   },
 
   devServer: {
-    port: 3002,
+    port: 3003,
     historyApiFallback: true,
   },
 
@@ -24,6 +24,10 @@ module.exports = (_, argv) => ({
         resolve: {
           fullySpecified: false,
         },
+      },
+      {
+        test: /.(png|jpe?g|gif|svg)$/i,
+        type: "asset/resource",
       },
       {
         test: /\.(css|s[ac]ss)$/i,
@@ -41,11 +45,14 @@ module.exports = (_, argv) => ({
 
   plugins: [
     new ModuleFederationPlugin({
-      name: "navbar_mf",
+      name: "ticket_management_mf",
       filename: "remoteEntry.js",
       remotes: {},
       exposes: {
-        "./NavbarComp":"./src/Navbar/NavbarComp.jsx"
+        "./UserScreen": "./src/components/user/UserScreen.jsx",
+        "./AdminScreen": "./src/components/admin/AdminScreen",
+        "./CreateTicket": "./src/components/shared/ticketCRUD/creation/CreateTicket",
+        "./DeleteTicket": "./src/components/shared/ticketCRUD/delete/DeleteTicket",
       },
       shared: {
         ...deps,
@@ -62,6 +69,6 @@ module.exports = (_, argv) => ({
     new HtmlWebPackPlugin({
       template: "./src/index.html",
     }),
-    new Dotenv()
+    new Dotenv(),
   ],
 });

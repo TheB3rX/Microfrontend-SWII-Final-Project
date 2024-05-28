@@ -1,0 +1,10 @@
+:root {
+  
+  --background-color: #f6f6f6;
+  --confirm-button-color: #3f97f3;
+  --header-gradient: linear-gradient(90deg, rgba(59,158,249,1) 0%, rgba(117,17,125,1) 100%);
+  --text-color: #000000;
+  --field-color: #D9D9D9;
+  --input-border-radius: 10px;
+  --button-border-radius: 15px;
+}

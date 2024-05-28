@@ -1,12 +1,13 @@
 {
-  "name": "turn-host",
+  "name": "login-mf",
   "version": "1.0.0",
   "scripts": {
     "build": "webpack --mode production",
     "build:dev": "webpack --mode development",
-    "build:start": "cd dist && PORT=3000 npx serve",
+    "build:start": "cd dist && PORT=3001 npx serve",
     "start": "webpack serve --open --mode development",
-    "start:live": "webpack serve --open --mode development --live-reload --hot"
+    "start:live": "webpack serve --open --mode development --live-reload --hot",
+    "test": "index.js --live-reload --hot"
   },
   "license": "MIT",
   "author": {
@@ -21,6 +22,7 @@
     "autoprefixer": "^10.1.0",
     "babel-loader": "^8.2.2",
     "css-loader": "^6.3.0",
+    "dotenv": "^16.4.5",
     "dotenv-webpack": "^8.0.1",
     "html-webpack-plugin": "^5.3.2",
     "postcss": "^8.2.1",
@@ -32,14 +34,14 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.13.10",
-    "@react-keycloak/web": "^3.4.0",
+    "ajax": "^0.0.4",
+    "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
-    "keycloak-js": "^24.0.3",
-    "localforage": "^1.10.0",
-    "match-sorter": "^6.3.4",
+    "cors": "^2.8.5",
+    "keycloak-js": "^24.0.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.23.1",
-    "sort-by": "^1.2.0"
+    "react-loader-spinner": "^6.1.6",
+    "react-router-dom": "^6.23.1"
   }
 }
