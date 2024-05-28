@@ -105,16 +105,14 @@ export const getUserType = async ({ token, userId }) => {
   };
 
   try {
-    // Log the request details
     console.log(`Requesting admin turns for user ${userId}`);
     const adminTurnsResponse = await fetch(`http://localhost:9001/turns/getAdminTurns/${userId}`, requestOptions);
     
-    // Log response status and headers
     console.log(`Admin turns response status: ${adminTurnsResponse.status}`);
     console.log(`Admin turns response headers:`, adminTurnsResponse.headers);
 
     if (adminTurnsResponse.status === 200) {
-      return 'admin'; // Admin
+      return 0; //admin
     }
 
     console.log(`Requesting user turns for user ${userId}`);
@@ -124,12 +122,12 @@ export const getUserType = async ({ token, userId }) => {
     console.log(`User turns response headers:`, userTurnsResponse.headers);
 
     if (userTurnsResponse.status === 200) {
-      return 'user'; // User
+      return 1; //user
     }
 
     throw new Error('Could not determine user type');
   } catch (error) {
     console.error('Error fetching user type:', error);
-    return null; // Indicate failure
+    return null; 
   }
 };

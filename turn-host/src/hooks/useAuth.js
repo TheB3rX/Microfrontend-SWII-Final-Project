@@ -22,13 +22,10 @@ export const AuthProvider = ({ children }) => {
     const checkAuth = async () => {
       try {
         const authenticated = await isAuthenticated();
-        console.log('Authenticated:', authenticated);
 
         if (authenticated) {
           const token = getToken();
           const userId = keycloakUserId();
-          console.log('Token:', token);
-          console.log('UserId:', userId);
 
           setAuthData({
             auth: authenticated,
@@ -40,12 +37,12 @@ export const AuthProvider = ({ children }) => {
           console.log("Determined User Type:", typeOfUser);
           setUserType(typeOfUser);
 
-          if (typeOfUser === 'admin') {
+          if (typeOfUser === 0) {
             console.log('Fetching admin turns');
             const listOfTurns = await getAdminTurns({ token, userId });
             console.log('Admin turns:', listOfTurns);
             setTurnList(listOfTurns);
-          } else if (typeOfUser === 'user') {
+          } else if (typeOfUser === 1) {
             console.log('Fetching user turns');
             const listOfTurns = await getUserTurns({ token, userId });
             console.log('User turns:', listOfTurns);
