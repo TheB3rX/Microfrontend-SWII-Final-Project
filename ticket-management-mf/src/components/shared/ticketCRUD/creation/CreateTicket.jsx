@@ -14,7 +14,7 @@ export const CreateTicket = ({ createTicket, onClose, dependantList = [] }) => {
   console.log("DEPLIST", dependantList)
   const selectList = dependantList.map(element => ({
     value: element.id,
-    label: element.username
+    label: element.id
   }));
 
   console.log("LIST" ,selectList)
