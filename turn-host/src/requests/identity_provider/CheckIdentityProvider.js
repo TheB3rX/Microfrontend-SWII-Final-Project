@@ -25,6 +25,9 @@ export const addDataToUser = async ({token, userId, username, email, firstName, 
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("Authorization", `Bearer ${token}`);
 
+  console.log("USER",
+    username, email, firstName, lastName, organization
+  )
   const raw = JSON.stringify({
     "id": userId,
     "username": username,

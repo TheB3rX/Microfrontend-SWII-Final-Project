@@ -18,6 +18,9 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [userType, setUserType] = useState(null);
 
+
+  console.log("token", authData.token);
+  console.log("userid", authData.userId);
   useEffect(() => {
     const checkAuth = async () => {
       try {

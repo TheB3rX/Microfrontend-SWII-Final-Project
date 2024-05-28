@@ -4,37 +4,38 @@ import { useAuth } from '../hooks/useAuth';
 import { addDataToUser } from '../requests/identity_provider/CheckIdentityProvider';
 
 export const IdentitySignupPage = () => {
-  const { authData } = useAuth();
+ const { authData } = useAuth();
   const [formData, setFormData] = useState({
     username: '',
-    email: '',
+    email: authData?.email || '',
     firstName: '',
     lastName: '',
     organization: '',
   });
 
-  const check = async () => {
+  const handleSendIdentityProviderData = (data) => {
+    setFormData(data);
+    check(data);
+  };
+
+  const check = async (data) => {
     if (authData.auth) {
       const dataForm = {
         token: authData.token,
         userId: authData.userId,
-        ...formData,
+        ...data,
       };
 
       try {
-        console.log(
-          dataForm
-        )
         await addDataToUser(dataForm);
       } catch (error) {
         console.log(error);
       }
     }
   };
-
   return (
     <>
-      <SignupIdentityProvider SendIdentityProviderData={check} />
+      <SignupIdentityProvider sendIdentityProviderData={handleSendIdentityProviderData} />
     </>
   );
 };

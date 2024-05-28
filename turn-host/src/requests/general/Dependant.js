@@ -18,6 +18,6 @@ export const getAvailableDependantList = async ({ token, userId}) => {
   const dependantList = await fetch(`http://localhost:9000/user/getOrganizationDependants/${userId}`, requestOptions)
     .then((response) => response.json())
     .catch((error) => console.error(error));
-  console.log(dependantList[0])
+  console.log(dependantList)
   return dependantList;
 }
