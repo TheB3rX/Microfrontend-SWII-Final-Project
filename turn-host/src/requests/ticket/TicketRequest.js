@@ -37,7 +37,7 @@ export const deleteTicket = ({ token, turn }) => {
     redirect: "follow"
   };
 
-  fetch("http://localhost:9001/turn/delete", requestOptions)
+  fetch("http://localhost:9001/turns/delete", requestOptions)
     .then((response) => response.json())
     .catch((error) => console.error(error));
 
